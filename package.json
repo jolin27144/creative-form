@@ -1,6 +1,8 @@
 {
   "name": "creative-form",
   "version": "0.1.0",
+  "description": "creative-form 利用Vue.Draggable 自定义生成表单配置并可存储读取",
+  "author": "izzy <daxiong.yang@qq.com>",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
