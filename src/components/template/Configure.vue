@@ -19,8 +19,8 @@
             tag="div"
           >
             <renders
-              v-for="(element, index) in formList"
-              :key="index"
+              v-for="element in formList"
+              :key="element.ele"
               :ele="element.ele"
               :obj="element.obj || {}"
             >
@@ -55,7 +55,7 @@
               @handleConfEle="confEle"
               @changeVisibility="changeVisibility"
               v-for="(element, index) in sortable_item"
-              :key="index"
+              :key="element.ele"
               :index="index"
               :ele="element.ele"
               :obj="element.obj || {}"
