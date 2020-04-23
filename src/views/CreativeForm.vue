@@ -1,113 +1,52 @@
 <template>
   <div class="manage">
-    <div class="manage-top">
-      <span class="icon-title">检查模版</span>
-      <div class="btn-bar">
-        <span class="btn" @click="add">新增模版</span>
-        <span class="btn" @click="deletAll">批量删除</span>
-      </div>
-      <div class="search">
-        <Input
-          class="search-input"
-          suffix="ios-search"
-          v-model.trim="searchForm.name"
-          @on-change="nameChange"
-          placeholder="搜索"
-        />
-      </div>
-    </div>
+    <ul class="modal-tab">
+      <li
+        v-for="(item, key) in configureModal.tabs"
+        :class="[key + 1 === configureModal.step ? 'on' : '']"
+        :key="item"
+        @click="tabsHaddle(item, key)"
+      >
+        {{ item.name }}
+      </li>
+    </ul>
 
-    <div class="manage-content">
-      <Table
-        class="table"
-        id="table"
-        border
-        :loading="load.loading"
-        :columns="table.columns"
-        :data="table.tableData"
-        sortable="custom"
-        @on-selection-change="selectionChange"
-        ref="table"
-      ></Table>
-      <Page
-        class="table-page"
-        :current="searchForm.pageNumber"
-        :total="table.total"
-        :page-size="searchForm.pageSize"
-        :page-size-opts="[10, 25, 50, 100]"
-        show-total
-        show-sizer
-        @on-change="changePage"
-        @on-page-size-change="changePageSize"
-      ></Page>
-    </div>
-
-    <Modal
-      v-model="delModal.flag"
-      :title="delModal.title"
-      :mask-closable="false"
-      class="modal"
-      @on-ok="delOK"
-    >
-      <p>确定删除该记录?</p>
-    </Modal>
-
-    <Modal
-      class="modal full"
-      id="configure_modal"
-      v-model="configureModal.flag"
-      :title="configureModal.title"
-      :mask-closable="false"
-      :footer-hide="true"
-    >
-      <ul class="modal-tab">
-        <li
-          v-for="(item, key) in configureModal.tabs"
-          :class="[key + 1 === configureModal.step ? 'on' : '']"
-          :key="item"
-          @click="tabsHaddle(item, key)"
-        >
-          {{ item.name }}
-        </li>
-      </ul>
-
-      <div v-if="configureModal.step === 1" class="modal-tab-step attribute">
-        <div class="modal-tab-title">
-          <h3>新增模版属性详情填写</h3>
-          <div class="btn-bar">
-            <span class="btn">完成编辑</span>
-          </div>
+    <div v-if="configureModal.step === 1" class="modal-tab-step attribute">
+      <div class="modal-tab-title">
+        <h3>新增模版属性详情填写</h3>
+        <div class="btn-bar">
+          <span class="btn">完成编辑</span>
         </div>
-        <Form ref="form" :model="form" :rules="ruleValidate" :label-width="100">
-          <FormItem label="模版名称" prop="name">
-            <Input v-model="form.name" placeholder="请输入模版名称" />
-          </FormItem>
-          <FormItem label="模版描述" prop="notes">
-            <Input
-              v-model="form.notes"
-              type="textarea"
-              :autosize="{ minRows: 5, maxRows: 10 }"
-              placeholder="描述"
-            />
-          </FormItem>
-          <FormItem label="模版状态" prop="status">
-            <RadioGroup v-model="form.status">
-              <Radio label="启用">启用</Radio>
-              <Radio label="停用">停用</Radio>
-            </RadioGroup>
-          </FormItem>
-        </Form>
       </div>
+      <Form ref="form" :model="form" :rules="ruleValidate" :label-width="100">
+        <FormItem label="模版名称" prop="name">
+          <Input v-model="form.name" placeholder="请输入模版名称" />
+        </FormItem>
+        <FormItem label="模版描述" prop="notes">
+          <Input
+            v-model="form.notes"
+            type="textarea"
+            :autosize="{ minRows: 5, maxRows: 10 }"
+            placeholder="描述"
+          />
+        </FormItem>
+        <FormItem label="模版状态" prop="status">
+          <RadioGroup v-model="form.status">
+            <Radio label="启用">启用</Radio>
+            <Radio label="停用">停用</Radio>
+          </RadioGroup>
+        </FormItem>
+      </Form>
+    </div>
 
-      <v-configure
-        v-if="configureModal.step === 2"
-        @func="renderFlag"
-        :form="form"
-        class="modal-tab-step"
-      ></v-configure>
-    </Modal>
+    <v-configure
+      v-if="configureModal.step === 2"
+      @func="renderFlag"
+      :form="form"
+      class="modal-tab-step"
+    ></v-configure>
 
-    <div class="pop-modal" v-if="renderModal.flag">
+    <!-- <div class="pop-modal" v-if="renderModal.flag">
       <div class="pop-content">
         <div class="pop-title">
           <span>{{ renderModal.title }}</span>
@@ -117,7 +56,7 @@
         </div>
         <v-render></v-render>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -126,11 +65,11 @@ import { mapState, mapActions } from "vuex";
 // import ScrollBar from "perfect-scrollbar";
 // import "perfect-scrollbar/css/perfect-scrollbar.css";
 import Configure from "../components/template/Configure";
-import Render from "../components/template/Render";
+// import Render from "../components/template/Render";
 export default {
   components: {
-    "v-configure": Configure,
-    "v-render": Render
+    "v-configure": Configure
+    // "v-render": Render
   },
   data() {
     return {
