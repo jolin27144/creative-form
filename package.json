@@ -9,7 +9,8 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue src/ tests/unit tests/e2e/specs"
   },
   "dependencies": {
     "core-js": "^3.6.4",
