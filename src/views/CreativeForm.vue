@@ -15,7 +15,7 @@
       <div class="modal-tab-title">
         <h3>新增模版属性详情填写</h3>
         <div class="btn-bar">
-          <span class="btn">完成编辑</span>
+          <span class="btn" @click="save">完成编辑</span>
         </div>
       </div>
       <Form ref="form" :model="form" :rules="ruleValidate" :label-width="100">
@@ -43,6 +43,7 @@
       v-show="configureModal.step === 2"
       class="modal-tab-step"
       @func="renderFlag"
+      @save="save"
       :form="original.form"
     ></v-configure>
 
@@ -65,6 +66,9 @@
 // import "perfect-scrollbar/css/perfect-scrollbar.css";
 import Configure from "./Configure";
 // import Render from "../components/template/Render";
+const setFormToLocalStorage = (output = {}) => {
+  localStorage.setItem("template", JSON.stringify(output));
+};
 export default {
   components: {
     "v-configure": Configure
@@ -220,18 +224,18 @@ export default {
       this.searchForm.pageNumber = 1;
     },
     dataInit() {
-      const url = "/opp-server/baseData/soilEvent/soilEventManage";
-      this.get(url, this.searchForm).then(res => {
-        if (res.status === 1) {
-          this.load.loading = false;
-          this.table.tableData = res.data.list;
-          this.table.total = res.data.pager.recordCount;
-          /* eslint-disable */
-          // new ScrollBar("#table div.ivu-table-body");
-        } else {
-          this.load.loading = false;
-        }
-      });
+      // const url = "/opp-server/baseData/soilEvent/soilEventManage";
+      // this.get(url, this.searchForm).then(res => {
+      //   if (res.status === 1) {
+      //     this.load.loading = false;
+      //     this.table.tableData = res.data.list;
+      //     this.table.total = res.data.pager.recordCount;
+      //     /* eslint-disable */
+      //     // new ScrollBar("#table div.ivu-table-body");
+      //   } else {
+      //     this.load.loading = false;
+      //   }
+      // });
     },
     changePage(v) {
       this.searchForm.pageNumber = v;
@@ -250,7 +254,7 @@ export default {
     tabsHaddle(item, index) {
       this.configureModal.step = index + 1;
     },
-    edit(data) {
+    edit() {
       this.configureModal.flag = true;
     },
     addHaddle(name) {
@@ -354,6 +358,16 @@ export default {
     },
     close() {
       this.renderModal.flag = false;
+    },
+
+    save() {
+      const form = localStorage.getItem("templateForm")
+        ? localStorage.getItem("templateForm")
+        : JSON.stringify([]);
+      setFormToLocalStorage({
+        ...this.form,
+        form
+      });
     },
     // 组件内将Props初始化到Data
     initPropsIntoData() {

@@ -92,6 +92,15 @@ import PcRenderer from "../components/renderer/pc-renderer/PcRenderer";
 import Edit from "../components/edit/Edit";
 // import ScrollBar from "perfect-scrollbar";
 // import "perfect-scrollbar/css/perfect-scrollbar.css";
+
+const setFormToLocalStorage = (form = []) => {
+  localStorage.setItem("templateForm", JSON.stringify(form.filter(v => v)));
+};
+const getFormToLocalStorage = () => {
+  return localStorage.getItem("templateForm")
+    ? JSON.parse(localStorage.getItem("templateForm"))
+    : [];
+};
 export default {
   components: {
     Edit,
@@ -110,40 +119,40 @@ export default {
     }
   },
   computed: {
-    // 数据字典已选择项
-    dataDictSelected() {
-      return this.sortable_item.map(v => {
-        const obj = JSON.parse(v.obj.dict || "{}");
-        return obj.id || -1;
-      });
-    },
+    // // 数据字典已选择项
+    // dataDictSelected() {
+    //   return this.sortable_item.map(v => {
+    //     const obj = JSON.parse(v.obj.dict || "{}");
+    //     return obj.id || -1;
+    //   });
+    // },
     // 对应控件的数据字典
     dataDictList() {
       return this.dataDict.filter(v => {
         return v.type == this.modalFormData.type;
       });
-    },
-    // 被关联字段列表
-    relationList() {
-      // 只有type内三项可作为被关联字段
-      let type = ["select", "radio", "checkbox"];
-      const arr = this.sortable_item.filter(k => {
-        return type.indexOf(k.ele) >= 0 && !!k.obj.name;
-      });
-      return arr;
-    },
-    // 被关联字段数据
-    relationValue() {
-      const name = this.modalFormData.relation_name;
-      let items = [];
-      if (!name) return items;
-      for (let i in this.sortable_item) {
-        if (this.sortable_item[i].obj.name == name) {
-          items = this.sortable_item[i].obj.items;
-        }
-      }
-      return items;
     }
+    // // 被关联字段列表
+    // relationList() {
+    //   // 只有type内三项可作为被关联字段
+    //   let type = ["select", "radio", "checkbox"];
+    //   const arr = this.sortable_item.filter(k => {
+    //     return type.indexOf(k.ele) >= 0 && !!k.obj.name;
+    //   });
+    //   return arr;
+    // },
+    // // 被关联字段数据
+    // relationValue() {
+    //   const name = this.modalFormData.relation_name;
+    //   let items = [];
+    //   if (!name) return items;
+    //   for (let i in this.sortable_item) {
+    //     if (this.sortable_item[i].obj.name == name) {
+    //       items = this.sortable_item[i].obj.items;
+    //     }
+    //   }
+    //   return items;
+    // }
   },
   data() {
     return {
@@ -170,27 +179,20 @@ export default {
   methods: {
     // 克隆表单提交事件
     handleSubmit() {
-      console.info(this.form);
-      if (this.form.name === "" || this.form.status === "") {
-        this.$Notice.warning({
-          title: "模版属性不全",
-          desc: "请补充完整模版名称和状态才能完成编辑",
-          duration: 2
-        });
-        return;
-      }
-      console.info(this.sortable_item);
+      // if (this.form.name === "" || this.form.status === "") {
+      //   this.$Notice.warning({
+      //     title: "模版属性不全",
+      //     desc: "请补充完整模版名称和状态才能完成编辑",
+      //     duration: 2
+      //   });
+      // }else{
+      setFormToLocalStorage(this.sortable_item);
+      this.$emit("save", getFormToLocalStorage());
+      // }
     },
     // 预览表单
     handlePreview() {
-      localStorage.setItem(
-        "templateForm",
-        JSON.stringify(
-          this.sortable_item.filter(v => {
-            return v;
-          })
-        )
-      );
+      setFormToLocalStorage(this.sortable_item);
       this.$emit("func", true);
     },
     // 清空克隆表单
