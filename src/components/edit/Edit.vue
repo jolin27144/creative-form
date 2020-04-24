@@ -23,7 +23,9 @@
       >
         <div v-for="item in radioCheckboxList" :key="item.label_value">
           <i-input v-model="item.label_name" placeholder=""></i-input>
-          <i-button @click="radioCheckboxRemove(item)">删除</i-button>
+          <i-button @click="radioCheckboxRemove(item.label_value)"
+            >删除</i-button
+          >
         </div>
         <i-button @click="radioCheckboxAdd()">添加</i-button>
       </FormItem>
@@ -66,7 +68,12 @@ export default {
   name: "Edit",
 
   props: {
+    show: Boolean,
     modalFormData: {
+      type: Object,
+      default: () => {}
+    },
+    sortable_item: {
       type: Object,
       default: () => {}
     }
@@ -77,7 +84,7 @@ export default {
       // radio
       radioCheckboxList: [
         {
-          label_value: parseInt(new Date().getTime() / 1000) + "",
+          label_value: (new Date().getTime() / 1000).toString(),
           label_name: ""
         }
       ]
@@ -85,31 +92,31 @@ export default {
   },
 
   methods: {
-    radioCheckboxRemove(item) {
-      this.radioCheckboxList.$remove(item);
+    initRadioCheckboxList() {
+      this.radioCheckboxList = this.modalFormData.items.map(item => item);
+    },
+    // 根据label_value判断要删除的项
+    radioCheckboxRemove(label_value) {
+      this.radioCheckboxList.forEach((item, index) => {
+        item.label_value === label_value &&
+          this.$delete(this.radioCheckboxList, index);
+      });
     },
     // radioCheckbox
     radioCheckboxAdd() {
       this.radioCheckboxList.push({
-        label_value: parseInt(new Date().getTime() / 1000) + "",
+        label_value: (new Date().getTime() / 1000).toString(),
         label_name: ""
       });
     },
     // modal点击取消执行事件，清空当前modal内容
     handleCancel() {
-      this.showModal = false;
-      setTimeout(() => {
-        this.modalFormData = {
-          color: "",
-          loading: false
-        };
-      }, 500);
+      this.$emit("update:show", false);
     },
     // modal点击确定执行事件
     handleOk() {
       const index = this.modalFormData.listIndex;
       this.modalFormData.items = this.radioCheckboxList;
-
       this.sortable_item[index].obj = Object.assign(
         {},
         this.sortable_item[index].obj,
@@ -117,6 +124,10 @@ export default {
       );
       this.handleCancel();
     }
+  },
+
+  created() {
+    this.initRadioCheckboxList();
   }
 };
 </script>

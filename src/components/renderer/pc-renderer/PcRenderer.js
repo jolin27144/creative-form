@@ -57,7 +57,6 @@ export default {
 
   render(h) {
     var $this = this;
-    debugger;
     // 获取当前控件渲染
     const arr =
       (form_item[this.ele.toLowerCase()] &&
@@ -131,13 +130,18 @@ export default {
               }
             }
           },
-          nativeOn: {
-            click() {
-              let data = {
-                index: $this.index,
-                id: $this.obj.label + $this.index
-              };
-              $this.$emit("handleConfEle", data);
+          // nativeOn: {
+          //   click() {
+          //     let data = {
+          //       index: $this.index,
+          //       id: $this.obj.label + $this.index
+          //     };
+          //     $this.$emit("handleConfEle", data);
+          //   }
+          // },
+          on: {
+            handleConfEle(val) {
+              $this.$emit("handleConfEle", val);
             }
           },
           style: {

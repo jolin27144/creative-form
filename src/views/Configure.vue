@@ -75,7 +75,12 @@
             </PcRenderer>
           </transition-group>
         </draggable>
-        <Edit v-show="showModal"></Edit>
+        <Edit
+          v-if="showModal"
+          :show.sync="showModal"
+          :sortable_item="sortable_item"
+          :modalFormData.sync="modalFormData"
+        ></Edit>
       </Form>
     </div>
   </div>
@@ -93,7 +98,53 @@ export default {
     draggable,
     PcRenderer
   },
-  props: ["form"],
+  props: {
+    form: Array
+  },
+
+  watch: {
+    showModal(val) {
+      if (!val) {
+        this.handleCancel();
+      }
+    }
+  },
+  computed: {
+    // 数据字典已选择项
+    dataDictSelected() {
+      return this.sortable_item.map(v => {
+        const obj = JSON.parse(v.obj.dict || "{}");
+        return obj.id || -1;
+      });
+    },
+    // 对应控件的数据字典
+    dataDictList() {
+      return this.dataDict.filter(v => {
+        return v.type == this.modalFormData.type;
+      });
+    },
+    // 被关联字段列表
+    relationList() {
+      // 只有type内三项可作为被关联字段
+      let type = ["select", "radio", "checkbox"];
+      const arr = this.sortable_item.filter(k => {
+        return type.indexOf(k.ele) >= 0 && !!k.obj.name;
+      });
+      return arr;
+    },
+    // 被关联字段数据
+    relationValue() {
+      const name = this.modalFormData.relation_name;
+      let items = [];
+      if (!name) return items;
+      for (let i in this.sortable_item) {
+        if (this.sortable_item[i].obj.name == name) {
+          items = this.sortable_item[i].obj.items;
+        }
+      }
+      return items;
+    }
+  },
   data() {
     return {
       formList: formList,
@@ -185,7 +236,7 @@ export default {
     confEle(data) {
       this.showModal = false;
       this.modalFormData = {
-        color: "",
+        // color: "",
         loading: false
       };
       const listTemp = Object.assign({}, this.sortable_item[data.index]);
@@ -193,7 +244,7 @@ export default {
         this.modalFormData[i] = listTemp.obj[i];
       }
       // 配置项中未找到color，删除modalFormData中自带color属性
-      if (!listTemp.obj["color"]) delete this.modalFormData.color;
+      // if (!listTemp.obj["color"]) delete this.modalFormData.color;
       // 设置被配置控件的index，便于完成配置找到相应对象赋值
       this.modalFormData.listIndex = data.index;
       // Vue 不能检测到对象属性的添加或删除
@@ -202,10 +253,13 @@ export default {
       this.radioCheckboxList = this.modalFormData.items;
 
       this.showModal = true;
-      let id = document.getElementById(data.id);
-      let top = id.offsetTop;
-      let height = id.offsetHeight;
-      document.getElementById("configure_tool").style.top = top + height + "px";
+      let target = document.getElementById(data.id);
+      let top = target.offsetTop;
+      let height = target.offsetHeight;
+      this.$nextTick(() => {
+        document.getElementById("configure_tool").style.top =
+          top + height + "px";
+      });
     },
     // 删除克隆控件
     removeEle(index) {
@@ -232,7 +286,7 @@ export default {
       this.$set(this.sortable_item[index].obj, "index", index + 1);
       this.$set(this.sortable_item[index].obj, "name", v.label + index);
       this.$set(this.sortable_item[index].obj, "visibility", visibility);
-    }
+    },
     // // radioCheckbox
     // radioCheckboxAdd() {
     //   this.radioCheckboxList.push({
@@ -243,48 +297,10 @@ export default {
     // radioCheckboxRemove(item) {
     //   this.radioCheckboxList.$remove(item);
     // }
-  },
-  watch: {
-    showModal(val) {
-      if (!val) {
-        this.handleCancel();
+    initPropsIntoData() {
+      if (this.form) {
+        this.sortable_item = this.form;
       }
-    }
-  },
-  computed: {
-    // 数据字典已选择项
-    dataDictSelected() {
-      return this.sortable_item.map(v => {
-        const obj = JSON.parse(v.obj.dict || "{}");
-        return obj.id || -1;
-      });
-    },
-    // 对应控件的数据字典
-    dataDictList() {
-      return this.dataDict.filter(v => {
-        return v.type == this.modalFormData.type;
-      });
-    },
-    // 被关联字段列表
-    relationList() {
-      // 只有type内三项可作为被关联字段
-      let type = ["select", "radio", "checkbox"];
-      const arr = this.sortable_item.filter(k => {
-        return type.indexOf(k.ele) >= 0 && !!k.obj.name;
-      });
-      return arr;
-    },
-    // 被关联字段数据
-    relationValue() {
-      const name = this.modalFormData.relation_name;
-      let items = [];
-      if (!name) return items;
-      for (let i in this.sortable_item) {
-        if (this.sortable_item[i].obj.name == name) {
-          items = this.sortable_item[i].obj.items;
-        }
-      }
-      return items;
     }
   },
   mounted() {
@@ -292,9 +308,10 @@ export default {
     // new ScrollBar("#sortable_form");
   },
   created() {
-    this.sortable_item = JSON.parse(
-      localStorage.getItem("templateForm") || "[]"
-    );
+    // this.sortable_item = JSON.parse(
+    //   localStorage.getItem("templateForm") || "[]"
+    // );
+    this.initPropsIntoData();
   }
 };
 </script>

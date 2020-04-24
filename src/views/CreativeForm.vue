@@ -11,7 +11,7 @@
       </li>
     </ul>
 
-    <div v-if="configureModal.step === 1" class="modal-tab-step attribute">
+    <div v-show="configureModal.step === 1" class="modal-tab-step attribute">
       <div class="modal-tab-title">
         <h3>新增模版属性详情填写</h3>
         <div class="btn-bar">
@@ -40,10 +40,10 @@
     </div>
 
     <v-configure
-      v-if="configureModal.step === 2"
-      @func="renderFlag"
-      :form="form"
+      v-show="configureModal.step === 2"
       class="modal-tab-step"
+      @func="renderFlag"
+      :form="original.form"
     ></v-configure>
 
     <!--<div class="pop-modal" v-if="renderModal.flag">
@@ -61,7 +61,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
 // import ScrollBar from "perfect-scrollbar";
 // import "perfect-scrollbar/css/perfect-scrollbar.css";
 import Configure from "./Configure";
@@ -70,6 +69,24 @@ export default {
   components: {
     "v-configure": Configure
     // "v-render": Render
+  },
+  props: {
+    original: {
+      type: Object,
+      default: () => {
+        return {
+          id: "",
+          // 模板名称
+          name: "",
+          // 模板状态
+          status: false,
+          // 描述
+          description: "",
+          // 表单数据
+          form: []
+        };
+      }
+    }
   },
   data() {
     return {
@@ -189,9 +206,6 @@ export default {
       uploadData: {}
     };
   },
-  computed: {
-    ...mapState({})
-  },
   watch: {
     // 搜索
     searchForm: {
@@ -202,7 +216,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateParam"]),
     nameChange() {
       this.searchForm.pageNumber = 1;
     },
@@ -341,8 +354,25 @@ export default {
     },
     close() {
       this.renderModal.flag = false;
+    },
+    // 组件内将Props初始化到Data
+    initPropsIntoData() {
+      this.form = Object.assign(
+        {},
+        {
+          id: this.original.id,
+          name: this.original.name,
+          status: this.original.status,
+          description: this.original.description
+        }
+      );
     }
   },
+
+  created() {
+    this.initPropsIntoData();
+  },
+
   mounted() {
     this.dataInit();
   }
