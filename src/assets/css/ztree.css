@@ -1,0 +1,205 @@
+/*ztree*/
+#treeDemo.ztree *{
+    font-size:14px;
+}
+#treeDemo.ztree {
+    width: auto;
+    max-height: inherit;
+    margin: 0;
+    padding:0;
+    font-size:14px;
+}
+#treeDemo.ztree li {
+    position:relative;
+    line-height: inherit;
+}
+#treeDemo.ztree li a{
+    display:block;
+    position:relative;
+    width:100%;
+    height:46px;
+    line-height:46px;
+    padding:0;
+    padding-left:32px;
+    padding-right: 40px;
+    text-align:left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: "Helvetica Neue",Helvetica,"Microsoft Yahei",Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif;
+    /* border-bottom:1px solid #172944; */
+}
+#treeDemo.ztree li a:hover{
+    text-decoration:none;
+    color:#14b391;
+}
+#treeDemo.ztree li.level1 a{padding-left:52px;}
+#treeDemo.ztree li.level1 span.button.switch{left:32px;}
+
+#treeDemo.ztree li.level2 a{padding-left:72px;}
+#treeDemo.ztree li.level2 span.button.switch{left:52px;}
+
+#treeDemo.ztree li.level3 a{padding-left:92px;}
+#treeDemo.ztree li.level3 span.button.switch{left:72px;}
+
+#treeDemo.ztree li.level4 a{padding-left:112px;}
+#treeDemo.ztree li.level4 span.button.switch{left:92px;}
+
+#treeDemo.ztree li.level5 a{padding-left:132px;}
+#treeDemo.ztree li.level5 span.button.switch{left:112px;}
+
+#treeDemo.ztree li.level5 a{padding-left:152px;}
+#treeDemo.ztree li.level5 span.button.switch{left:132px;}
+
+#treeDemo.ztree li.level5 a{padding-left:172px;}
+#treeDemo.ztree li.level5 span.button.switch{left:152px;}
+
+#treeDemo.ztree>li{
+    position: relative;
+    border-bottom:0 none;
+    padding:0 0px;
+}
+#treeDemo.ztree>li>ul{
+    border:0 none;
+    width:100%;
+    padding:0;
+    background:none;
+}
+
+#treeDemo.ztree li span{
+    line-height:46px;
+}
+
+#treeDemo.ztree li span.node_name {
+    position: relative;
+    padding-left: 28px;
+}
+
+#treeDemo.ztree li span input{
+    height: 32px !important;
+}
+#treeDemo.ztree li ul{
+    padding:0;
+}
+#treeDemo.ztree li ul.line{
+    background: none;
+}
+#treeDemo.ztree li span.button{
+    position:absolute;
+}
+
+#treeDemo.ztree li span.button.switch{
+    position: absolute;
+    left:12px;
+    top:23px;
+    width: 16px;
+    height: 16px;
+    z-index:2;
+}
+
+#treeDemo.ztree li span.button.switch.roots_open,
+#treeDemo.ztree li span.button.switch.noline_open,
+#treeDemo.ztree li span.button.switch.center_open,
+#treeDemo.ztree li span.button.switch.bottom_open {
+    background: url("../img/list/close.png") no-repeat center center !important;
+}
+
+#treeDemo.ztree li span.button.switch.roots_close,
+#treeDemo.ztree li span.button.switch.noline_close,
+#treeDemo.ztree li span.button.switch.center_close,
+#treeDemo.ztree li span.button.switch.bottom_close {
+    background: url("../img/list/open.png") no-repeat center center !important;
+}
+
+/* #treeDemo.ztree li span.button.ico_open,
+#treeDemo.ztree li span.button.ico_close,
+#treeDemo.ztree li span.button.ico_docu{
+    width:0;
+    border:0;
+    background-image: inherit;
+} */
+#treeDemo.ztree li span.button.roots_docu,
+#treeDemo.ztree li span.button.center_docu,
+#treeDemo.ztree li span.button.noline_docu,
+#treeDemo.ztree li span.button.bottom_docu{
+    top: 22px;
+    left:16px;
+    width:4px;
+    height:4px;
+    padding:0px;
+    background:#fff;
+    border:0 none;
+    -webkit-border-radius:100%;
+    -moz-border-radius:100%;
+    border-radius:100%;
+}
+#treeDemo.ztree li span.button.roots_docu:before,
+#treeDemo.ztree li span.button.center_docu:before,
+#treeDemo.ztree li span.button.noline_docu:before,
+#treeDemo.ztree li span.button.bottom_docu:before{
+    width:0;
+    border:0 none;
+}
+#treeDemo.ztree li a.curSelectedNode{
+    padding-top: 0px;
+    background-color: inherit;
+    color: #14b391;
+    height: 46px;
+    border:0;
+    /* border-bottom:1px solid #172944; */
+    opacity:1;
+    font-weight:bold;
+}
+#treeDemo.ztree li span.button.add{
+    top:50%;
+    right:62px;
+    width:16px;
+    height:16px;
+    margin-top:-8px;
+    background:url("../img/list/add.png") no-repeat center center !important;
+    background-image: inherit;
+}
+#treeDemo.ztree li span.button.upload{
+    top:50%;
+    right:62px;
+    width:16px;
+    height:16px;
+    margin-top:-8px;
+    background:url("../img/list/upload.png") no-repeat center center !important;
+    background-image: inherit;
+}
+#treeDemo.ztree li span.button.remove{
+    top:50%;
+    right:36px;
+    width:16px;
+    height:16px;
+    margin-top:-8px;
+    background:url("../img/list/delete.png") no-repeat center center !important;
+    background-image: inherit;
+}
+#treeDemo.ztree li span.button.edit{
+    top:50%;
+    right:10px;
+    width:16px;
+    height:16px;
+    margin-top:-7px;
+    background:url("../img/list/edit.png") no-repeat center center !important;
+    background-image: inherit;
+}
+#treeDemo{
+    position: relative;
+    height: -moz-calc(100% - 30px); 
+    height: -webkit-calc(100% - 30px);
+    height: calc(100% - 30px);
+}
+
+.ztree li span.button.diy01_ico_open, .ztree li span.button.ico_open, .ztree li span.button.ico_close,.ztree li span.button.diy01_ico_close, .ztree li span.button.ico_docu, .ztree li span.button.diy01_ico_docu {
+    width: 20px;
+    margin-left: 2px;
+    background: url("../img/list/file.png") no-repeat center center !important;
+}
+
+#treeDemo.ztree li span.button {
+    top: 50%;
+    margin-top: -8px;
+}

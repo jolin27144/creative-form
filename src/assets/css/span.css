@@ -1,0 +1,22 @@
+.span-cell {
+    padding: 2px 12px;
+    display: inline-block;
+    border-radius: 4px;
+    color: white;
+}
+
+.span-cell--green {
+    background: #74c05b;
+}
+
+.span-cell--red {
+    background: #f37f80;
+}
+
+.span-cell--blue {
+    background: #7ba8ea;
+}
+
+.span-cell--invalid {
+    background: #333;
+}

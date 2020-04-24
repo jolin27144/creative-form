@@ -1,0 +1,110 @@
+.app .ivu-table-cell {
+    padding: 5px;
+}
+
+.app .ivu-table td,
+.app .ivu-table th {
+    text-align: center;
+}
+.app .ivu-table td img {
+    width: 100%;
+    height: auto;
+}
+.app .ivu-table {
+    font-size: 15px !important;
+}
+.app .ivu-table th {
+    background-color: #f2f2f2;
+}
+
+.app div.ivu-table-body {
+    position: relative;
+    height: calc(100% - 41px);
+}
+.header-table div.ivu-table-body {
+    height: calc(100% - 56px);
+}
+.big-header-table div.ivu-table-body {
+    height: calc(100% - 76px);
+}
+.ivu-table-fixed,
+.ivu-table-fixed-right {
+    height: 100%;
+}
+
+.ivu-table-fixed-body {
+    height: calc(100% - 40px) !important;
+}
+
+.ivu-table-fixed-right {
+    right: 0 !important;
+}
+.ivu-table .ivu-btn {
+    font-size: 16px !important;
+    border: 0;
+    background-color: initial;
+}
+.ivu-table .ivu-btn:focus {
+    box-shadow: none;
+}
+.ivu-table .ivu-btn:hover {
+    background-color: initial;
+}
+.ivu-table .ivu-btn>span:before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    margin-top: -4px;
+    margin-right: 4px;
+    background-size: auto 18px!important;
+}
+.ivu-btn-del span:before {
+    background: url('../img/icon/del.png') no-repeat;
+}
+.ivu-btn-see span:before {
+    background: url('../img/icon/see.png') no-repeat;
+}
+.ivu-btn-edit span:before {
+    background: url('../img/icon/edit.png') no-repeat;
+}
+.ivu-table .ivu-btn.ivu-btn-edit>span:before {
+    margin-top: -2px;
+    margin-right: 2px;
+    background-size: auto 16px!important;
+}
+.ivu-btn-download span:before {
+    background: url('../img/list/download.png') no-repeat;
+}
+.aqi-green,
+.aqi-yellow,
+.aqi-red,
+.untreated,
+.processed {
+    display: inline-block;
+    width: 60px;
+    height: 32px;
+    line-height: 32px;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.aqi-green,
+.processed {
+    background: #42be60;
+}
+
+.aqi-yellow {
+    background: #f8a616;
+}
+
+.aqi-red,
+.untreated {
+    background: #f56364;
+}
+
+.ps__rail-x {
+    z-index: 10;
+}

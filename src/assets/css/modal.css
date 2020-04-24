@@ -1,0 +1,441 @@
+.form-item {
+    display: inline-block;
+    width: 50%;
+}
+
+.modal .ivu-modal-content {
+    border-radius: 0
+}
+
+.modal.modal-info .ivu-modal {
+    width: 80% !important;
+}
+
+.modal.modal-big .ivu-modal {
+    width: 1000px !important;
+}
+
+.modal.modal-small .ivu-modal {
+    width: 680px !important;
+}
+
+.modal .ivu-modal-body {
+    position: relative;
+    max-height: 600px;
+    padding-right: 30px;
+    font-size: 16px;
+}
+
+.pdf-view .ivu-modal-body {
+    height: 660px;
+    max-height: 660px;
+}
+
+.modal .ivu-modal-header {
+    padding: 10px;
+    background: #14b391;
+}
+
+.modal .ivu-modal-header p,
+.modal .ivu-modal-header-inner {
+    font-size: 16px;
+    color: #fff;
+}
+
+.modal .ivu-modal-close {
+    top: 6px;
+}
+
+.modal .ivu-modal-close .ivu-icon-ios-close {
+    color: #fff;
+}
+
+.modal .ivu-btn-primary,
+.modal .ivu-btn-primary.active,
+.modal .ivu-btn-primary:active {
+    background-color: #14b391;
+    border-color: #14b391;
+}
+
+.ivu-modal-footer .ivu-btn {
+    width: 80px;
+    height: 36px;
+    line-height: 32px;
+    padding: 0;
+    border-color: #14b391;
+}
+.modal .ivu-input {
+    height: 38px
+}
+
+.ivu-form-item-content button {
+    margin-right: 10px
+}
+
+.ivu-form-item-content .form-img {
+    width: 80px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.upload-btn {
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 15px;
+    cursor: pointer;
+    border: 1px solid #dcdee2;
+}
+
+.ivu-btn.demo-updown {
+    margin: 0 5px;
+    background-color: #14b391;
+    border-color: #14b391;
+    color: #fff;
+}
+
+.ivu-btn.demo-updown:hover {
+    background-color: #089678;
+    border-color: #089678;
+    color: #fff;
+}
+
+.form-half .ivu-form-item {
+    display: inline-block;
+    width: 50%;
+}
+
+.modal-list {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.modal-list li {
+    float: left;
+    width: 100%;
+}
+
+.modal-list li.half {
+    width: 50%;
+}
+
+.modal-list li>label,
+.modal-list li>div {
+    display: flex;
+    -webkit-display: flex;
+    align-items: center;
+    float: left;
+    height: 60px;
+    min-height: 60px;
+    padding: 0 16px;
+    border-bottom: 1px solid #ccc;
+}
+
+.modal-list li>label {
+    width: 160px;
+    text-align: center;
+    font-weight: bold;    
+    /*white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;*/
+    background: #f2f2f2;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.modal-list li>div {
+    position: relative;
+    width: calc(100% - 160px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.modal-info .modal-list li>label {
+    width: 260px;
+}
+
+.modal-info .modal-list li>div {
+    width: calc(100% - 260px);
+}
+
+.modal-info .modal-list li>div img {
+    height: 80%;
+}
+
+.modal-list li.block {
+    display: block;
+    float: none;
+}
+
+.modal-list li.rowspan {
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+    
+.modal-list li.rowspan label,
+.modal-list li.rowspan div {
+    height: 180px;
+    line-height: 180px;
+}
+
+/**/
+.pdf-btn {
+    cursor: pointer;
+    color: #44a3ab;
+}
+
+.pdf-btn:hover {
+    opacity: .8;
+}
+
+.td-file-list {
+    display: inline-block;
+    width: calc(100% - 140px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.upload {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 16px;
+    height: 24px;
+    line-height: 24px;
+    padding-left: 28px;
+    color: #666;
+    background: url('../img/icon/upload.png') no-repeat left center;
+    
+}
+
+.list-title {
+    height: 60px;
+    line-height: 60px;
+    font-weight: bold;
+    text-align: center;
+    background: #e3f2f5;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+li.question-list>label,
+li.question-list>div {
+    width: 50%;
+}
+
+.pop {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 5;
+    width: 360px;
+    background: #fff;
+    box-shadow: 0 0.04rem 0.12rem rgba(0, 0, 0, .15);
+}
+
+.pop-modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2016;
+    background-color: rgba(55,55,55,.6);
+    height: 100%;    
+}
+.pop-content {
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    width: 1000px;
+    margin-left: -500px;
+    background: #fff;
+}
+
+.pop-title {
+    position: relative;
+    height: 44px;
+    line-height: 44px;
+    background: #14b391;
+    color: #fff;
+}
+
+.pop-title span {
+    margin-left: 10px;
+}
+
+.pop-title a {
+    top: 0;
+}
+
+.pop-title a:hover {
+    opacity: .8;
+}
+
+.pop-title a.ivu-modal-close .ivu-icon-ios-close {
+    color: #fff;
+}
+
+.pop-main {
+    max-height: 480px;
+    padding: 10px;
+}
+
+.pop-footer {
+    height: 48px;
+    padding: 8px 10px;
+    text-align: right;
+}
+
+.pop-footer a {
+    display: inline-block;
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    cursor: pointer;
+    color: #515a6e;
+    border: 1px solid #14b391;
+    border-radius: 4px;
+}
+
+.file-upload {
+    position: relative;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px dashed #dcdee2;
+}
+
+.file-upload:hover {
+    border-color: #14b391;
+}
+
+.file-upload input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-list li {
+    position: relative;
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #f2f2f2;
+}
+
+.file-list li i {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer
+}
+
+.file-list li i:hover {
+    opacity: 0.8;
+}
+
+/**/
+.modal-tab {
+    height: 40px;
+    padding: 0 10px;
+    background: #f5f5f5;
+}
+
+.modal-tab li {
+    position: relative;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    width: 20%;
+    text-align: center;
+    cursor: pointer
+}
+
+.modal-tab li.on {
+    background: #fff;
+}
+
+.modal-tab li.on:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 3px;
+    background: #14b391;
+}
+/**/
+.modal-tab-step {
+    padding: 10px 15%;
+}
+
+.modal-tab-title {
+    height: 80px;
+    line-height: 80px;
+}
+
+.modal-tab-title h3 {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.modal-tab-title .btn-bar {
+    float: right;
+}
+
+.modal-tab-title h3:before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 18px;
+    vertical-align: middle;
+    margin: -2px 5px;
+    background: #14b391;
+}
+
+/*  */
+.modal.full .ivu-modal {
+    top: 0;
+    width: 100% !important;
+    height: 100%;
+}
+
+.modal.full .ivu-modal-content {
+    height: 100%;
+}
+
+.modal.full .ivu-modal-body {
+    height: calc(100% - 44px);
+    max-height: inherit;
+    padding: 5px;
+}
+
+.modal.full .ivu-modal-close .ivu-icon-ios-close {
+    color: #333;
+}
+
+.modal.full .ivu-modal-header {
+    background: #fff;
+}
+
+.modal.full .ivu-modal-header p,
+.modal.full .ivu-modal-header-inner {
+    color: #333;
+}
+
+.render .ivu-modal-body {
+    padding: 0;
+}

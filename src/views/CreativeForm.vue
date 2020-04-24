@@ -46,7 +46,7 @@
       class="modal-tab-step"
     ></v-configure>
 
-    <!-- <div class="pop-modal" v-if="renderModal.flag">
+    <!--<div class="pop-modal" v-if="renderModal.flag">
       <div class="pop-content">
         <div class="pop-title">
           <span>{{ renderModal.title }}</span>
@@ -64,7 +64,7 @@
 import { mapState, mapActions } from "vuex";
 // import ScrollBar from "perfect-scrollbar";
 // import "perfect-scrollbar/css/perfect-scrollbar.css";
-import Configure from "../components/template/Configure";
+import Configure from "./Configure";
 // import Render from "../components/template/Render";
 export default {
   components: {

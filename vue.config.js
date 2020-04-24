@@ -1,3 +1,5 @@
 module.exports = {
-  lintOnSave: true
+  lintOnSave: true,
+
+  runtimeCompiler: true
 };
