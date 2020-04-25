@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import CreativeForm from "@/views/CreativeForm";
+import CreativeForm from "@/creative-form/components/CreativeForm";
 
 describe("props form into configure", () => {
   it("renders form when passed", () => {

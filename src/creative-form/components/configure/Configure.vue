@@ -91,10 +91,10 @@
 </template>
 <script>
 import draggable from "vuedraggable";
-import formList from "../config/FormList";
-import RenderToEditing from "../components/renderer/pc-renderer/renderToEditing/RenderToEditing";
-import Edit from "../components/edit/Edit";
-import RenderToDraggable from "@/components/renderer/pc-renderer/renderToDragable/RenderToDraggable";
+import formList from "../../config/FormList";
+import RenderToEditing from "../renderer/pc-renderer/renderToEditing/RenderToEditing";
+import Edit from "../edit/Edit";
+import RenderToDraggable from "../renderer/pc-renderer/renderToDragable/RenderToDraggable";
 // import ScrollBar from "perfect-scrollbar";
 // import "perfect-scrollbar/css/perfect-scrollbar.css";
 
@@ -319,7 +319,7 @@ export default {
 };
 </script>
 <style lang="less">
-@import "~@/assets/css/configure.css";
+@import "../../assets/css/configure.css";
 
 .container {
   height: calc(100% - 80px);

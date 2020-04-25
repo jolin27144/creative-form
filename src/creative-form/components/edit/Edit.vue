@@ -3,22 +3,23 @@
     <Form
       class="form_content"
       :label-width="130"
-      :model="modalFormData"
-      ref="modalFormData"
+      :model="editingModalData"
+      ref="editingModalData"
     >
       <FormItem
         label="控件名称："
-        v-if="typeof modalFormData.label !== 'undefined'"
+        v-if="typeof editingModalData.label !== 'undefined'"
       >
         <i-input
-          v-model="modalFormData.label"
+          v-model="editingModalData.label"
           placeholder="请输入控件名称"
         ></i-input>
       </FormItem>
       <FormItem
         label="选项："
         v-if="
-          modalFormData.type === 'radio' || modalFormData.type === 'checkbox'
+          editingModalData.type === 'radio' ||
+            editingModalData.type === 'checkbox'
         "
       >
         <div v-for="item in radioCheckboxList" :key="item.label_value">
@@ -31,24 +32,24 @@
       </FormItem>
       <FormItem
         label="placeholder："
-        v-if="typeof modalFormData.placeholder !== 'undefined'"
+        v-if="typeof editingModalData.placeholder !== 'undefined'"
       >
         <i-input
-          v-model="modalFormData.placeholder"
+          v-model="editingModalData.placeholder"
           placeholder="请输入placeholder"
         ></i-input>
       </FormItem>
       <FormItem
         label="是否必填："
-        v-if="typeof modalFormData.require !== 'undefined'"
+        v-if="typeof editingModalData.require !== 'undefined'"
       >
-        <Checkbox v-model="modalFormData.require">必填</Checkbox>
+        <Checkbox v-model="editingModalData.require">必填</Checkbox>
       </FormItem>
       <FormItem
         label="时间格式："
-        v-if="typeof modalFormData.format !== 'undefined'"
+        v-if="typeof editingModalData.format !== 'undefined'"
       >
-        <RadioGroup v-model="modalFormData.format">
+        <RadioGroup v-model="editingModalData.format">
           <Radio label="yyyy年MM月dd日"></Radio>
           <Radio label="yyyy-MM-dd HH:mm"></Radio>
         </RadioGroup>
@@ -56,7 +57,10 @@
     </Form>
     <div slot="footer">
       <Button type="text" @click="handleCancel">取消</Button>
-      <Button type="primary" :loading="modalFormData.loading" @click="handleOk"
+      <Button
+        type="primary"
+        :loading="editingModalData.loading"
+        @click="handleOk"
         >确定</Button
       >
     </div>
@@ -69,7 +73,7 @@ export default {
 
   props: {
     show: Boolean,
-    modalFormData: {
+    editingModalData: {
       type: Object,
       default: () => {}
     },
@@ -93,7 +97,7 @@ export default {
 
   methods: {
     initRadioCheckboxList() {
-      this.radioCheckboxList = this.modalFormData.items.map(item => item);
+      this.radioCheckboxList = this.editingModalData.items.map(item => item);
     },
     // 根据label_value判断要删除的项
     radioCheckboxRemove(label_value) {
@@ -115,12 +119,12 @@ export default {
     },
     // modal点击确定执行事件
     handleOk() {
-      const index = this.modalFormData.listIndex;
-      this.modalFormData.items = this.radioCheckboxList;
+      const index = this.editingModalData.listIndex;
+      this.editingModalData.items = this.radioCheckboxList;
       this.sortable_item[index].obj = Object.assign(
         {},
         this.sortable_item[index].obj,
-        this.modalFormData
+        this.editingModalData
       );
       this.handleCancel();
     }

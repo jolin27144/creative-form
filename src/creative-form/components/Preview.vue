@@ -9,9 +9,9 @@
   </div>
 </template>
 <script>
-import Preview from "@/components/preview/Preview";
+import Preview from "./preview/Preview";
 export default {
-  name: "PreviewForm",
+  name: "CreativeFormPreviewer",
   components: { Preview },
   props: {
     form: {

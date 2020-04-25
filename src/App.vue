@@ -5,16 +5,14 @@
 </template>
 
 <style lang="less">
-@import "~@/assets/css/reset.css";
-@import "~@/assets/css/table.css";
-@import "~@/assets/css/modal.css";
-@import "~@/assets/css/span.css";
-@import "~@/assets/css/icon.css";
+@import "~@/creative-form/assets/css/reset.css";
+@import "~@/creative-form/assets/css/table.css";
+@import "~@/creative-form/assets/css/modal.css";
+@import "~@/creative-form/assets/css/span.css";
+@import "~@/creative-form/assets/css/icon.css";
 </style>
 <script>
-import CreativeForm from "./views/CreativeForm";
 export default {
-  components: { CreativeForm },
   data() {
     return {
       // 模板数据

@@ -10,7 +10,7 @@ import hr from "../../../form/hr/Hr";
 import p from "../../../form/p/P";
 import uploads from "../../../form/upload/upload";
 import datepicker from "../../../form/datepicker/DatePicker";
-import signature from "@/components/form/signature/Signature";
+import signature from "../../../form/signature/Signature";
 // import address from './control/Address';
 
 import trigger from "../../../../config/trigger";

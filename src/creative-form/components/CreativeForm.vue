@@ -62,9 +62,10 @@
 <script>
 // import ScrollBar from "perfect-scrollbar";
 // import "perfect-scrollbar/css/perfect-scrollbar.css";
-import Configure from "./Configure";
-import PreviewForm from "@/views/Preview";
+import Configure from "./configure/Configure";
+import PreviewForm from "./Preview";
 export default {
+  name: "CreativeForm",
   components: {
     Configure,
     PreviewForm
@@ -162,7 +163,7 @@ export default {
 };
 </script>
 <style lang="less">
-@import "~@/assets/css/configure.css";
+@import "~../assets/css/configure.css";
 
 .attribute {
   height: calc(100% - 40px);

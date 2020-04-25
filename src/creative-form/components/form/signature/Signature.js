@@ -38,7 +38,7 @@ export const signatureConf = {
   // 对应数据库内类型
   type: "signature",
   // 是否可配置
-  config: true,
+  config: false,
   // 控件左侧label内容
   label: "单选",
   // 是否显示行内元素
