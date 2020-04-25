@@ -17,3 +17,6 @@ if (typeof window !== "undefined" && window.Vue) {
 export default {
   install
 };
+
+export { default as CreativeForm } from "./components/CreativeForm";
+export { default as CreativeFormPreviewer } from "./components/Preview";
