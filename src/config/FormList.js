@@ -9,6 +9,7 @@ import { textConf } from "../components/form/text/Text";
 // import { pConf } from "./control/P";
 // import { uploadsConf } from './control/Uploads';
 import { datePickerConf } from "../components/form/datepicker/DatePicker";
+import { signatureConf } from "../components/form/signature/Signature";
 // import { addressConf } from './control/Address';
 
 const formList = {
@@ -23,7 +24,8 @@ const formList = {
   checkbox: checkBoxConf,
   input: inputConf,
   text: textConf,
-  datepicker: datePickerConf
+  datepicker: datePickerConf,
+  signature: signatureConf
 };
 let list_arr = [];
 for (let i in formList) {

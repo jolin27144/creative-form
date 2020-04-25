@@ -2,21 +2,21 @@
   <div class="manage">
     <ul class="modal-tab">
       <li
-        v-for="(item, key) in configureModal.tabs"
-        :class="[key + 1 === configureModal.step ? 'on' : '']"
-        :key="item"
-        @click="tabsHaddle(item, key)"
+        v-for="(item, index) in tabs.list"
+        :class="[index === tabs.step ? 'on' : '']"
+        :key="item.type"
+        @click="handleSwitchTab(index)"
       >
         {{ item.name }}
       </li>
     </ul>
-
-    <div v-show="configureModal.step === 1" class="modal-tab-step attribute">
+    <div class="btn-bar">
+      <span class="btn" @click="handlePreview">预览内容</span>
+      <span class="btn" @click="handleSave">完成编辑</span>
+    </div>
+    <div v-show="tabs.step === 0" class="modal-tab-step attribute">
       <div class="modal-tab-title">
         <h3>新增模版属性详情填写</h3>
-        <div class="btn-bar">
-          <span class="btn" @click="save">完成编辑</span>
-        </div>
       </div>
       <Form ref="form" :model="form" :rules="ruleValidate" :label-width="100">
         <FormItem label="模版名称" prop="name">
@@ -39,25 +39,23 @@
       </Form>
     </div>
 
-    <v-configure
-      v-show="configureModal.step === 2"
+    <Configure
+      v-show="tabs.step === 1"
       class="modal-tab-step"
-      @func="renderFlag"
-      @save="save"
-      :form="original.form"
-    ></v-configure>
+      :form="formForConfigure"
+    ></Configure>
 
-    <!--<div class="pop-modal" v-if="renderModal.flag">
+    <div class="pop-modal" v-if="preview.flag">
       <div class="pop-content">
         <div class="pop-title">
-          <span>{{ renderModal.title }}</span>
-          <a class="ivu-modal-close" @click="close">
+          <span>{{ preview.title }}</span>
+          <a class="ivu-modal-close" @click="handlePreviewClose">
             <i class="ivu-icon ivu-icon-ios-close"></i>
           </a>
         </div>
-        <v-render></v-render>
+        <PreviewForm :form="formForConfigure"></PreviewForm>
       </div>
-    </div>-->
+    </div>
   </div>
 </template>
 
@@ -65,14 +63,11 @@
 // import ScrollBar from "perfect-scrollbar";
 // import "perfect-scrollbar/css/perfect-scrollbar.css";
 import Configure from "./Configure";
-// import Render from "../components/template/Render";
-const setFormToLocalStorage = (output = {}) => {
-  localStorage.setItem("template", JSON.stringify(output));
-};
+import PreviewForm from "@/views/Preview";
 export default {
   components: {
-    "v-configure": Configure
-    // "v-render": Render
+    Configure,
+    PreviewForm
   },
   props: {
     original: {
@@ -94,95 +89,13 @@ export default {
   },
   data() {
     return {
-      load: {
-        loading: true
-      },
-      // 分页搜索
-      searchForm: {
-        pageNumber: 1,
-        pageSize: 15,
-        name: "",
-        responsibility_person: ""
-      },
-      table: {
-        total: 0,
-        columns: [
-          { type: "selection", width: 60, align: "center" },
-          { title: "序号", type: "index", width: 80 },
-          { title: "模版名称", key: "name" },
-          { title: "状态", key: "status", width: 300 },
-          { title: "创建时间", key: "createTime" },
-          { title: "创建人", key: "createMan" },
-          { title: "所属部门", key: "responsibility_person" },
-          { title: "描述", key: "notes" },
-          { title: "更新时间", key: "updateTime" },
-          {
-            title: "操作",
-            key: "action",
-            width: 340,
-            render: (h, params) => {
-              return h("div", [
-                h(
-                  "Button",
-                  {
-                    props: { size: "small" },
-                    class: "ivu-btn-del",
-                    on: {
-                      click: () => {
-                        this.del(params.row.id);
-                      }
-                    }
-                  },
-                  "删除"
-                ),
-                h(
-                  "Button",
-                  {
-                    props: { size: "small" },
-                    class: "ivu-btn-edit",
-                    on: {
-                      click: () => {
-                        this.edit(params.row);
-                      }
-                    }
-                  },
-                  "修改"
-                ),
-                h(
-                  "Button",
-                  {
-                    props: { size: "small" },
-                    class: "ivu-btn-see",
-                    on: {
-                      click: () => {
-                        this.preview(params.row);
-                      }
-                    }
-                  },
-                  "预览"
-                )
-              ]);
-            }
-          }
-        ],
-        tableData: [],
-        tableSelect: []
-      },
-      // 删除
-      delModal: {
-        flag: false,
-        title: "删除提示",
-        ids: null
-      },
       // 新增
-      configureModal: {
-        flag: false,
-        title: "配置模版",
-        tabs: [
+      tabs: {
+        list: [
           { name: "模版属性", type: "attribute" },
           { name: "模版内容", type: "configure" }
         ],
-        step: 1
+        step: 0
       },
       // 新增属性
       form: {
@@ -202,174 +115,33 @@ export default {
         ],
         status: [{ required: true, message: "请选择状态", trigger: "change" }]
       },
+      // 渲染表单
+      formForConfigure: [],
       // 预览
-      renderModal: {
+      preview: {
         flag: false,
         title: "模版预览"
-      },
-      uploadData: {}
+      }
     };
   },
-  watch: {
-    // 搜索
-    searchForm: {
-      handler() {
-        this.dataInit();
-      },
-      deep: true
-    }
-  },
   methods: {
-    nameChange() {
-      this.searchForm.pageNumber = 1;
+    handleSwitchTab(index) {
+      this.tabs.step = index;
     },
-    dataInit() {
-      // const url = "/opp-server/baseData/soilEvent/soilEventManage";
-      // this.get(url, this.searchForm).then(res => {
-      //   if (res.status === 1) {
-      //     this.load.loading = false;
-      //     this.table.tableData = res.data.list;
-      //     this.table.total = res.data.pager.recordCount;
-      //     /* eslint-disable */
-      //     // new ScrollBar("#table div.ivu-table-body");
-      //   } else {
-      //     this.load.loading = false;
-      //   }
-      // });
+    handlePreview() {
+      this.preview.flag = true;
     },
-    changePage(v) {
-      this.searchForm.pageNumber = v;
-      this.dataInit();
+    handlePreviewClose() {
+      this.preview.flag = false;
     },
-    changePageSize(v) {
-      this.searchForm.pageSize = v;
-      this.dataInit();
-    },
-    /*
-     * 添加事件
-     */
-    add() {
-      this.configureModal.flag = true;
-    },
-    tabsHaddle(item, index) {
-      this.configureModal.step = index + 1;
-    },
-    edit() {
-      this.configureModal.flag = true;
-    },
-    addHaddle(name) {
-      this.$refs[name].validate(valid => {
-        if (valid) {
-          const url = "/opp-server/baseData/soilEvent/saveByOperate";
-          this.postUrlencode(url, this.form)
-            .then(res => {
-              if (res.status === 1) {
-                this.$Message.success("提交成功！");
-              } else {
-                this.$Message.success("提交失败！");
-              }
-              this.resetHaddle(name);
-            })
-            .finally(() => {
-              if (this.searchForm.pageNumber === 1) {
-                setTimeout(() => {
-                  this.dataInit();
-                }, 1000);
-              } else {
-                this.searchForm.pageNumber = 1;
-              }
-            });
-        } else {
-          this.$Message.error("请补充完整信息");
-        }
-      });
-    },
-    resetHaddle(name) {
-      this.newModal.flag = false;
-      this.$refs[name].resetFields();
-    },
-    // 筛选
-    selectionChange(v) {
-      this.table.tableSelect = v;
-    },
-    // id 组合
-    idsHaddle() {
-      let idArray = [];
-      let ids = null;
-      this.table.tableSelect.map(item => {
-        idArray.push(item.id);
-      });
-      ids = idArray.join(",");
-      return ids;
-    },
-    /*
-     * 删除
-     */
-    del(ids) {
-      this.delModal.flag = true;
-      this.delModal.ids = ids;
-    },
-    deletAll() {
-      if (this.table.tableSelect.length === 0) {
-        this.$Notice.open({
-          title: "请选择删除行",
-          duration: 2
-        });
-        return;
-      }
-
-      this.del(this.idsHaddle());
-    },
-    delOK() {
-      const url = "/opp-server/baseData/soilEvent/delete";
-      this.postUrlencode(url, { ids: this.delModal.ids })
-        .then(res => {
-          if (res.status === 1) {
-            this.$Message.success("删除成功");
-          } else {
-            this.$Message.success("删除失败");
-          }
-        })
-        .finally(() => {
-          if (
-            this.table.tableData.length === 1 &&
-            this.searchForm.pageNumber > 1
-          ) {
-            this.searchForm.pageNumber = this.searchForm.pageNumber - 1;
-          } else {
-            setTimeout(() => {
-              this.dataInit();
-            }, 1000);
-          }
-        });
-    },
-    /*
-     * 复制
-     */
-    preview(row) {
-      console.info(row);
-      this.renderModal.flag = true;
-    },
-    /*
-     * 预览
-     */
-    renderFlag(flag) {
-      this.renderModal.flag = flag;
-    },
-    close() {
-      this.renderModal.flag = false;
-    },
-
-    save() {
-      const form = localStorage.getItem("templateForm")
-        ? localStorage.getItem("templateForm")
-        : JSON.stringify([]);
-      setFormToLocalStorage({
+    handleReset() {},
+    handleSave() {
+      this.$emit("output", {
         ...this.form,
-        form
+        form: this.formForConfigure
       });
     },
-    // 组件内将Props初始化到Data
+    // 组件内将Props Deep Clone 到Data
     initPropsIntoData() {
       this.form = Object.assign(
         {},
@@ -380,15 +152,12 @@ export default {
           description: this.original.description
         }
       );
+      this.formForConfigure = JSON.parse(JSON.stringify(this.original.form));
     }
   },
 
   created() {
     this.initPropsIntoData();
-  },
-
-  mounted() {
-    this.dataInit();
   }
 };
 </script>

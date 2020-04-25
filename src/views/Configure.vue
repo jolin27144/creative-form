@@ -2,13 +2,7 @@
   <div class="container">
     <div class="modal-tab-title">
       <h3>模版内容编辑区域</h3>
-      <div class="btn-bar">
-        <span class="btn" @click="handleReset()">取消编辑</span>
-        <span class="btn" @click="handlePreview()">预览内容</span>
-        <span class="btn" @click="handleSubmit()">完成编辑</span>
-      </div>
     </div>
-
     <div class="sortable-container">
       <Form :label-width="80" class="b-a">
         <draggable
@@ -25,13 +19,18 @@
             name="flip-list"
             tag="div"
           >
-            <PcRenderer
-              v-for="element in formList"
-              :key="element.ele"
-              :ele="element.ele"
-              :obj="element.obj"
-            >
-            </PcRenderer>
+            <!--            <RenderToEditing-->
+            <!--              v-for="(element, index) in formList"-->
+            <!--              :key="element.ele + index"-->
+            <!--              :ele="element.ele"-->
+            <!--              :obj="element.obj"-->
+            <!--            >-->
+            <!--            </RenderToEditing>-->
+            <RenderToDraggable
+              v-for="(element, index) in formList"
+              :key="element.ele + index"
+              :item="element"
+            ></RenderToDraggable>
           </transition-group>
         </draggable>
       </Form>
@@ -44,7 +43,12 @@
         :model="formData"
         @submit.native.prevent
       >
-        <div class="form-title">点击编辑模版名称</div>
+        <div class="form-title" v-if="!nameEditor.active">
+          {{ nameEditor.msg }}
+        </div>
+        <div class="update-name" v-else>
+          <Input v-model="nameEditor.msg" placeholder="请输入模版名称" />
+        </div>
         <draggable
           class="draggable-div"
           :list="sortable_item"
@@ -58,12 +62,12 @@
             name="flip-list"
             tag="div"
           >
-            <PcRenderer
+            <RenderToEditing
               @handleRemoveEle="removeEle"
               @handleConfEle="confEle"
               @changeVisibility="changeVisibility"
               v-for="(element, index) in sortable_item"
-              :key="element.ele"
+              :key="element.ele + index"
               :index="index"
               :ele="element.ele"
               :obj="element.obj || {}"
@@ -72,14 +76,14 @@
               :sortableItem="sortable_item"
               :config-icon="true"
             >
-            </PcRenderer>
+            </RenderToEditing>
           </transition-group>
         </draggable>
         <Edit
-          v-if="showModal"
-          :show.sync="showModal"
+          v-if="showEditingModal"
+          :show.sync="showEditingModal"
           :sortable_item="sortable_item"
-          :modalFormData.sync="modalFormData"
+          :editingModalData.sync="editingModalData"
         ></Edit>
       </Form>
     </div>
@@ -88,31 +92,28 @@
 <script>
 import draggable from "vuedraggable";
 import formList from "../config/FormList";
-import PcRenderer from "../components/renderer/pc-renderer/PcRenderer";
+import RenderToEditing from "../components/renderer/pc-renderer/renderToEditing/RenderToEditing";
 import Edit from "../components/edit/Edit";
+import RenderToDraggable from "@/components/renderer/pc-renderer/renderToDragable/RenderToDraggable";
 // import ScrollBar from "perfect-scrollbar";
 // import "perfect-scrollbar/css/perfect-scrollbar.css";
 
-const setFormToLocalStorage = (form = []) => {
-  localStorage.setItem("templateForm", JSON.stringify(form.filter(v => v)));
-};
-const getFormToLocalStorage = () => {
-  return localStorage.getItem("templateForm")
-    ? JSON.parse(localStorage.getItem("templateForm"))
-    : [];
-};
+// const setFormToLocalStorage = (form = []) => {
+//   localStorage.setItem("templateForm", JSON.stringify(form.filter(v => v)));
+// };
 export default {
   components: {
+    RenderToDraggable,
     Edit,
     draggable,
-    PcRenderer
+    RenderToEditing
   },
   props: {
     form: Array
   },
 
   watch: {
-    showModal(val) {
+    showEditingModal(val) {
       if (!val) {
         this.handleCancel();
       }
@@ -127,11 +128,11 @@ export default {
     //   });
     // },
     // 对应控件的数据字典
-    dataDictList() {
-      return this.dataDict.filter(v => {
-        return v.type == this.modalFormData.type;
-      });
-    }
+    // dataDictList() {
+    //   return this.dataDict.filter(v => {
+    //     return v.type == this.editingModalData.type;
+    //   });
+    // }
     // // 被关联字段列表
     // relationList() {
     //   // 只有type内三项可作为被关联字段
@@ -143,7 +144,7 @@ export default {
     // },
     // // 被关联字段数据
     // relationValue() {
-    //   const name = this.modalFormData.relation_name;
+    //   const name = this.editingModalData.relation_name;
     //   let items = [];
     //   if (!name) return items;
     //   for (let i in this.sortable_item) {
@@ -156,49 +157,49 @@ export default {
   },
   data() {
     return {
+      // 可配置控件
       formList: formList,
+      // 生成的控件
       sortable_item: [],
-      showModal: false,
-      // 深拷贝对象，防止默认空对象被更改
-      // 颜色选择器bug，对象下color不更新
-      modalFormData: {
+      // 编辑模态框
+      showEditingModal: false,
+      // 填入编辑模态框的数据
+      editingModalData: {
         color: "",
         loading: false
       },
+      // 引用 props passed form
       formData: {},
-      dataDict: []
-      // // radio
-      // radioCheckboxList: [
-      //   {
-      //     label_value: parseInt(new Date().getTime() / 1000) + "",
-      //     label_name: ""
-      //   }
-      // ]
+      // 编辑标题
+      nameEditor: {
+        active: false,
+        msg: "测试"
+      }
     };
   },
   methods: {
-    // 克隆表单提交事件
-    handleSubmit() {
-      // if (this.form.name === "" || this.form.status === "") {
-      //   this.$Notice.warning({
-      //     title: "模版属性不全",
-      //     desc: "请补充完整模版名称和状态才能完成编辑",
-      //     duration: 2
-      //   });
-      // }else{
-      setFormToLocalStorage(this.sortable_item);
-      this.$emit("save", getFormToLocalStorage());
-      // }
-    },
-    // 预览表单
-    handlePreview() {
-      setFormToLocalStorage(this.sortable_item);
-      this.$emit("func", true);
-    },
-    // 清空克隆表单
-    handleReset() {
-      this.sortable_item = [];
-    },
+    // // 克隆表单提交事件
+    // handleSubmit() {
+    //   // if (this.form.name === "" || this.form.status === "") {
+    //   //   this.$Notice.warning({
+    //   //     title: "模版属性不全",
+    //   //     desc: "请补充完整模版名称和状态才能完成编辑",
+    //   //     duration: 2
+    //   //   });
+    //   // }else{
+    //   setFormToLocalStorage(this.sortable_item);
+    //   this.$emit("save");
+    //   // }
+    // },
+    // // 预览表单
+    // handlePreview() {
+    //   setFormToLocalStorage(this.sortable_item);
+    //   this.$emit("func", true);
+    // },
+    // // 清空克隆表单
+    // handleReset() {
+    //   this.sortable_item = [];
+    // },
 
     // 控件回填数据
     handleChangeVal(val, element) {
@@ -214,21 +215,21 @@ export default {
     },
     // // modal点击确定执行事件
     // handleOk() {
-    //   const index = this.modalFormData.listIndex;
-    //   this.modalFormData.items = this.radioCheckboxList;
+    //   const index = this.editingModalData.listIndex;
+    //   this.editingModalData.items = this.radioCheckboxList;
     //
     //   this.sortable_item[index].obj = Object.assign(
     //     {},
     //     this.sortable_item[index].obj,
-    //     this.modalFormData
+    //     this.editingModalData
     //   );
     //   this.handleCancel();
     // },
     // // modal点击取消执行事件，清空当前modal内容
     // handleCancel() {
-    //   this.showModal = false;
+    //   this.showEditingModal = false;
     //   setTimeout(() => {
-    //     this.modalFormData = {
+    //     this.editingModalData = {
     //       color: "",
     //       loading: false
     //     };
@@ -236,25 +237,25 @@ export default {
     // },
     // 显示modal,配置被克隆控件
     confEle(data) {
-      this.showModal = false;
-      this.modalFormData = {
+      this.showEditingModal = false;
+      this.editingModalData = {
         // color: "",
         loading: false
       };
       const listTemp = Object.assign({}, this.sortable_item[data.index]);
       for (let i in listTemp.obj) {
-        this.modalFormData[i] = listTemp.obj[i];
+        this.editingModalData[i] = listTemp.obj[i];
       }
-      // 配置项中未找到color，删除modalFormData中自带color属性
-      // if (!listTemp.obj["color"]) delete this.modalFormData.color;
+      // 配置项中未找到color，删除editingModalData中自带color属性
+      // if (!listTemp.obj["color"]) delete this.editingModalData.color;
       // 设置被配置控件的index，便于完成配置找到相应对象赋值
-      this.modalFormData.listIndex = data.index;
+      this.editingModalData.listIndex = data.index;
       // Vue 不能检测到对象属性的添加或删除
-      this.modalFormData = Object.assign({}, this.modalFormData);
+      this.editingModalData = Object.assign({}, this.editingModalData);
 
-      this.radioCheckboxList = this.modalFormData.items;
+      this.radioCheckboxList = this.editingModalData.items;
 
-      this.showModal = true;
+      this.showEditingModal = true;
       let target = document.getElementById(data.id);
       let top = target.offsetTop;
       let height = target.offsetHeight;
@@ -280,7 +281,7 @@ export default {
           break;
         }
       }
-      this.showModal = false;
+      this.showEditingModal = false;
     },
     // 更改当前渲染字段是否显示
     changeVisibility(index, visibility) {

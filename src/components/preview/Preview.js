@@ -2,7 +2,7 @@ import title from "../form/title/Title";
 import hr from "../form/hr/Hr";
 import p from "../form/p/P";
 
-import area from "./config/area";
+// import area from "./config/area";
 
 const form_item = {
   title,
@@ -10,20 +10,20 @@ const form_item = {
   p
 };
 
-// 获取地区控件值
-function getAddressValue(address, area, code = 0, str = "") {
-  // 最后一步
-  if (code === address.length - 1 && code === 3) return str + address[code];
-  for (let i in area) {
-    if (area[i].value === address[code]) {
-      str =
-        str +
-        getAddressValue(address, area[i].children, code + 1, area[i].label);
-      break;
-    }
-  }
-  return str;
-}
+// // 获取地区控件值
+// function getAddressValue(address, area, code = 0, str = "") {
+//   // 最后一步
+//   if (code === address.length - 1 && code === 3) return str + address[code];
+//   for (let i in area) {
+//     if (area[i].value === address[code]) {
+//       str =
+//         str +
+//         getAddressValue(address, area[i].children, code + 1, area[i].label);
+//       break;
+//     }
+//   }
+//   return str;
+// }
 
 function getCascaderValue(address, area, code = 0, str = "") {
   // 最后一步
@@ -59,7 +59,7 @@ const getObjValue = (ele, obj) => {
   }
 
   if (ele === "address") {
-    return getAddressValue(obj.value, area);
+    // return getAddressValue(obj.value, area);
   }
 
   if (ele === "cascader") {

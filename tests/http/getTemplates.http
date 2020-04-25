@@ -1,0 +1,4 @@
+GET https://19.202.174.129/view-server/template/listTemplates
+Accept: application/json
+
+###

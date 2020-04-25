@@ -1,18 +1,19 @@
-import ItemIcon from "../../../config/ItemIcon";
-import input from "../../form/input/Input";
-import checkbox from "../../form/checkbox/CheckBox";
-import radio from "../../form/radio/Radio";
-import select from "../../form/select/Select";
-import text from "../../form/text/Text";
-import cascader from "../../form/cascader/Cascader";
-import title from "../../form/title/Title";
-import hr from "../../form/hr/Hr";
-import p from "../../form/p/P";
-import uploads from "../../form/upload/upload";
-import datepicker from "../../form/datepicker/DatePicker";
+import ItemIcon from "../../../../config/ItemIcon";
+import input from "../../../form/input/Input";
+import checkbox from "../../../form/checkbox/CheckBox";
+import radio from "../../../form/radio/Radio";
+import select from "../../../form/select/Select";
+import text from "../../../form/text/Text";
+import cascader from "../../../form/cascader/Cascader";
+import title from "../../../form/title/Title";
+import hr from "../../../form/hr/Hr";
+import p from "../../../form/p/P";
+import uploads from "../../../form/upload/upload";
+import datepicker from "../../../form/datepicker/DatePicker";
+import signature from "@/components/form/signature/Signature";
 // import address from './control/Address';
 
-import trigger from "../../../config/trigger";
+import trigger from "../../../../config/trigger";
 
 const form_item = {
   title,
@@ -26,7 +27,8 @@ const form_item = {
   cascader,
   // address,
   uploads,
-  text
+  text,
+  signature
 };
 
 const displayControl = (_self, sortableItem, name, value) => {
@@ -53,7 +55,7 @@ const displayControl = (_self, sortableItem, name, value) => {
 };
 
 export default {
-  name: "PcRenderer",
+  name: "RenderToEditing",
 
   render(h) {
     var $this = this;

@@ -98,7 +98,9 @@ export default {
               index: 3
             }
           }
-        ]
+        ],
+        // 签名图片
+        signImage: ""
       }
     };
   },

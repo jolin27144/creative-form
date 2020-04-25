@@ -1,24 +1,25 @@
 <template>
   <div>
-    <preview
-      v-for="(item, index) in templateForm"
-      :key="index"
+    <Preview
+      v-for="(item, index) in form"
+      :key="item.ele + index"
       :ele="item.ele"
       :obj="item.obj"
-    ></preview>
+    ></Preview>
   </div>
 </template>
 <script>
+import Preview from "@/components/preview/Preview";
 export default {
-  data() {
-    return {
-      templateForm: []
-    };
-  },
-  created() {
-    this.templateForm = JSON.parse(
-      localStorage.getItem("templateForm") || "[]"
-    );
+  name: "PreviewForm",
+  components: { Preview },
+  props: {
+    form: {
+      type: Array,
+      default: () => {
+        return [];
+      }
+    }
   }
 };
 </script>
