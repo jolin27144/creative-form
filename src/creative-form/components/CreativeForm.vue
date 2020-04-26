@@ -201,6 +201,20 @@ export default {
   .ivu-form-item-label {
     /*text-align: left;*/
   }
+  .ivu-input:hover,
+  textarea.ivu-input:hover {
+    border-color: #57a3f3 !important;
+  }
+  .ivu-btn-primary {
+    background-color: #2d8cf0 !important;
+    border-color: #2d8cf0 !important;
+  }
+  .ivu-radio-checked .ivu-radio-inner {
+    border-color: #2d8cf0 !important;
+  }
+  .ivu-radio-inner::after {
+    background-color: #2d8cf0 !important;
+  }
   .modal-tab {
     &-title {
       margin-bottom: 20px;
