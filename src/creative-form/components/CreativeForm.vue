@@ -54,15 +54,17 @@
     ></Configure>
 
     <div class="pop-modal" v-if="preview.flag">
-      <div class="pop-content">
-        <div class="pop-title">
-          <span>{{ preview.title }}</span>
-          <a class="ivu-modal-close" @click="handlePreviewClose">
-            <i class="ivu-icon ivu-icon-ios-close"></i>
-          </a>
-        </div>
-        <PreviewForm :form="formForConfigure"></PreviewForm>
-      </div>
+      <!--      <div class="pop-content">-->
+      <!--        <div class="pop-title">-->
+      <!--          <span>{{ preview.title }}</span>-->
+      <!--          <a class="ivu-modal-close" @click="handlePreviewClose">-->
+      <!--            <i class="ivu-icon ivu-icon-ios-close"></i>-->
+      <!--          </a>-->
+      <!--        </div>-->
+      <PreviewForm
+        :template="outputData"
+        @close="handlePreviewClose"
+      ></PreviewForm>
     </div>
   </div>
 </template>
@@ -71,7 +73,7 @@
 // import ScrollBar from "perfect-scrollbar";
 // import "perfect-scrollbar/css/perfect-scrollbar.css";
 import Configure from "./configure/Configure";
-import PreviewForm from "./Preview";
+import PreviewForm from "./CreativeFormPreviewer";
 export default {
   name: "CreativeForm",
   components: {
@@ -94,6 +96,15 @@ export default {
           form: []
         };
       }
+    }
+  },
+
+  computed: {
+    outputData() {
+      return {
+        ...this.form,
+        form: this.formForConfigure
+      };
     }
   },
   data() {
@@ -148,10 +159,7 @@ export default {
     },
     handleReset() {},
     handleSave() {
-      this.$emit("output", {
-        ...this.form,
-        form: this.formForConfigure
-      });
+      this.$emit("output", this.outputData);
     },
     // 组件内将Props Deep Clone 到Data
     initPropsIntoData() {

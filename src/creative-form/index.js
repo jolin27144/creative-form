@@ -1,5 +1,5 @@
 import CreativeForm from "./components/CreativeForm";
-import CreativeFormPreviewer from "./components/Preview";
+import CreativeFormPreviewer from "./components/CreativeFormPreviewer";
 
 const componentsToExport = [CreativeForm, CreativeFormPreviewer];
 
@@ -19,4 +19,4 @@ export default {
 };
 
 export { default as CreativeForm } from "./components/CreativeForm";
-export { default as CreativeFormPreviewer } from "./components/Preview";
+export { default as CreativeFormPreviewer } from "./components/CreativeFormPreviewer";

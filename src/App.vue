@@ -19,7 +19,7 @@ export default {
       data: {
         id: "709394",
         // 模板名称
-        name: "",
+        name: "测试标题",
         // 模板状态
         status: false,
         // 描述

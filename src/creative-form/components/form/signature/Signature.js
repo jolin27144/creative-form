@@ -1,5 +1,4 @@
 export default (_self, h) => {
-  debugger;
   return [
     // h("vue-esign", {
     //   ref: "vue-esign"
