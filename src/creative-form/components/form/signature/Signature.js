@@ -1,8 +1,34 @@
 export default (_self, h) => {
+  debugger;
   return [
-    h("vue-esign", {
-      ref: "vue-esign"
-    })
+    // h("vue-esign", {
+    //   ref: "vue-esign"
+    // })
+    h(
+      "div",
+      {
+        class: "esign-wrapper"
+      },
+      [
+        h("img", {
+          class: "esign-picture",
+          attrs: {
+            src: _self.esignPictrue || ""
+          }
+        }),
+        h(
+          "Button",
+          {
+            on: {
+              click() {
+                _self.$emit("showEsign");
+              }
+            }
+          },
+          "开始签名"
+        )
+      ]
+    )
   ];
 };
 

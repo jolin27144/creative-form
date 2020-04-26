@@ -228,5 +228,9 @@ export default {
     background-color: @primary-color !important;
     border-color: @primary-color !important;
   }
+
+  .ivu-modal-footer .ivu-btn {
+    border-color: @primary-color!important;
+  }
 }
 </style>

@@ -213,6 +213,7 @@ export default {
       default() {
         return [];
       }
-    }
+    },
+    esignPictrue: String
   }
 };
