@@ -132,15 +132,6 @@ export default {
               }
             }
           },
-          // nativeOn: {
-          //   click() {
-          //     let data = {
-          //       index: $this.index,
-          //       id: $this.obj.label + $this.index
-          //     };
-          //     $this.$emit("handleConfEle", data);
-          //   }
-          // },
           on: {
             handleConfEle(val) {
               $this.$emit("handleConfEle", val);

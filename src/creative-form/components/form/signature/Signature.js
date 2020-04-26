@@ -1,36 +1,8 @@
 export default (_self, h) => {
   return [
-    h(
-      "vue-esign",
-      {
-        ref: "vue-esign"
-        // props: {
-        //   value: _self.obj.value || "-1"
-        // },
-        // on: {
-        //   "on-change"(value) {
-        //     if (!_self.obj.name) {
-        //       return false;
-        //     }
-        //     _self.obj = Object.assign(_self.obj, {
-        //       value
-        //     });
-        //     _self.$emit("handleChangeVal", value);
-        //   }
-        // }
-      }
-      // _self.obj.items.map(v => {
-      //   return h(
-      //     "Radio",
-      //     {
-      //       props: {
-      //         label: v.label_value
-      //       }
-      //     },
-      //     v.label_name
-      //   );
-      // })
-    )
+    h("vue-esign", {
+      ref: "vue-esign"
+    })
   ];
 };
 
