@@ -2,7 +2,7 @@ export default (_self, h) => {
   return [
     h("Input", {
       props: {
-        placeholder: _self.obj.placeholder || "这是一个输入框",
+        placeholder: _self.obj.placeholder || "",
         maxlength: parseInt(_self.obj.maxLength) || 20,
         value: _self.obj.value || ""
       },

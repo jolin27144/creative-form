@@ -4,7 +4,7 @@ export default (_self, h) => {
       "RadioGroup",
       {
         props: {
-          value: _self.obj.value || "-1"
+          value: _self.obj.value || ""
         },
         on: {
           "on-change"(value) {

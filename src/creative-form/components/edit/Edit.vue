@@ -7,12 +7,12 @@
       ref="editingModalData"
     >
       <FormItem
-        label="控件名称："
+        label="名称："
         v-if="typeof editingModalData.label !== 'undefined'"
       >
         <i-input
           v-model="editingModalData.label"
-          placeholder="请输入控件名称"
+          placeholder="请输入名称"
         ></i-input>
       </FormItem>
       <FormItem
@@ -31,16 +31,16 @@
         <i-button @click="radioCheckboxAdd()">添加</i-button>
       </FormItem>
       <FormItem
-        label="placeholder："
+        label="提示语:"
         v-if="typeof editingModalData.placeholder !== 'undefined'"
       >
         <i-input
           v-model="editingModalData.placeholder"
-          placeholder="请输入placeholder"
+          placeholder="请输入提示语"
         ></i-input>
       </FormItem>
       <FormItem
-        label="是否必填："
+        label="必填："
         v-if="typeof editingModalData.require !== 'undefined'"
       >
         <Checkbox v-model="editingModalData.require">必填</Checkbox>

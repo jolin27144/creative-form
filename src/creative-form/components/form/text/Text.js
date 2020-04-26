@@ -3,7 +3,7 @@ export default (_self, h) => {
     h("Input", {
       attrs: {
         type: "textarea",
-        placeholder: _self.obj.placeholder || "这是一个文本域",
+        placeholder: _self.obj.placeholder || "",
         value: _self.obj.value,
         maxlength: _self.obj.maxLength || 200
       },
@@ -30,6 +30,7 @@ export let textConf = {
   config: true,
   // 控件左侧label内容
   label: "多行文本",
+  //
   placeholder: "",
   // 是否显示行内元素
   inlineBlock: false,
