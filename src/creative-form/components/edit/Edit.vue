@@ -55,14 +55,14 @@
         </RadioGroup>
       </FormItem>
     </Form>
-    <div slot="footer">
-      <Button type="text" @click="handleCancel">取消</Button>
+    <div class="edit-footer">
       <Button
         type="primary"
         :loading="editingModalData.loading"
         @click="handleOk"
         >确定</Button
       >
+      <Button @click="handleCancel">取消</Button>
     </div>
   </div>
 </template>
@@ -136,4 +136,21 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.edit {
+  &-footer {
+    display: flex;
+    flex-direction: row-reverse;
+    button {
+      &:last-of-type {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .ivu-input-wrapper {
+    width: 85% !important;
+    margin-right: 5%;
+  }
+}
+</style>
