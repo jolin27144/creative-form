@@ -49,11 +49,11 @@
 .sortable-form .items {
   padding: 50px;
   margin: 0;
-  border-bottom: 1px solid #f2f2f2;
+  border-bottom: 1px solid #fafafa;
 }
 
 .sortable-form .items:hover {
-  background: #f2f2f2;
+  background: #fafafa;
 }
 
 .sortable-form .form-list-group {
@@ -66,8 +66,23 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: #f2f2f2;
+  background: #f8fcff;
   padding: 20px;
+  &:before {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: 30px solid;
+    border-color: transparent transparent #f8fcff;
+    content: "";
+    position: absolute;
+    top: -60px;
+  }
+
+  .ivu-input-wrapper {
+    width: 85%;
+    margin-right: 5%;
+  }
 }
 
 .items .item-icon {
