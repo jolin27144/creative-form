@@ -222,5 +222,11 @@ export default {
       padding: 0 140px;
     }
   }
+
+  .ivu-checkbox-checked .ivu-checkbox-inner,
+  .ivu-checkbox-indeterminate .ivu-checkbox-inner {
+    background-color: @primary-color !important;
+    border-color: @primary-color !important;
+  }
 }
 </style>

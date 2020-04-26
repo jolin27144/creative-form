@@ -7,12 +7,12 @@
       ref="editingModalData"
     >
       <FormItem
-        label="名称："
+        label="标题："
         v-if="typeof editingModalData.label !== 'undefined'"
       >
         <i-input
           v-model="editingModalData.label"
-          placeholder="请输入名称"
+          placeholder="请输入标题"
         ></i-input>
       </FormItem>
       <FormItem
