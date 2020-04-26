@@ -49,6 +49,8 @@
       v-show="tabs.step === 1"
       class="modal-tab-step"
       :form="formForConfigure"
+      :form-name="form.name"
+      @change-name="handleChangeFormName"
     ></Configure>
 
     <div class="pop-modal" v-if="preview.flag">
@@ -132,6 +134,9 @@ export default {
     };
   },
   methods: {
+    handleChangeFormName(str) {
+      this.form.name = str;
+    },
     handleSwitchTab(index) {
       this.tabs.step = index;
     },

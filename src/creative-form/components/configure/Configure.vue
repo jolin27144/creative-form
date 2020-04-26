@@ -6,28 +6,7 @@
     <main class="container-main">
       <div class="sortable-container">
         <Form :label-width="80" class="b-a">
-          <!--          <draggable-->
-          <!--            :clone="cloneData"-->
-          <!--            :list="formList"-->
-          <!--            ghost-class="ghost"-->
-          <!--            :animation="0"-->
-          <!--            :group="{ name: 'shared', pull: 'clone', revertClone: false }"-->
-          <!--            :sort="false"-->
-          <!--          >-->
-          <!--            <transition-group-->
-          <!--              class="form-list-group"-->
-          <!--              type="transition"-->
-          <!--              name="flip-list"-->
-          <!--              tag="div"-->
-          <!--            >-->
-          <!--              <RenderToDraggable-->
-          <!--                v-for="(element, index) in formList"-->
-          <!--                :key="element.ele + index"-->
-          <!--                :item="element"-->
-          <!--              ></RenderToDraggable>-->
           <RenderToDraggable :list="formList"></RenderToDraggable>
-          <!--            </transition-group>-->
-          <!--          </draggable>-->
         </Form>
       </div>
       <div class="sortable-item b-a">
@@ -38,11 +17,21 @@
           :model="formData"
           @submit.native.prevent
         >
-          <div class="form-title" v-if="!nameEditor.active">
+          <div
+            class="form-title"
+            v-if="!nameEditor.active"
+            @click="nameEditor.active = true"
+          >
             {{ nameEditor.msg }}
           </div>
           <div class="update-name" v-else>
-            <Input v-model="nameEditor.msg" placeholder="请输入模版名称" />
+            <Input
+              :value="nameEditor.msg"
+              @input="handleNameEditorInput"
+              placeholder="请输入模版名称"
+              class="update-name-input"
+            />
+            <Button @click="nameEditor.active = false">确定</Button>
           </div>
           <draggable
             class="draggable-div"
@@ -91,8 +80,8 @@ import formList from "../../config/FormList";
 import RenderToEditing from "../renderer/pc-renderer/renderToEditing/RenderToEditing";
 import Edit from "../edit/Edit";
 import RenderToDraggable from "../renderer/pc-renderer/renderToDragable/RenderToDraggable";
-// import ScrollBar from "perfect-scrollbar";
-// import "perfect-scrollbar/css/perfect-scrollbar.css";
+import ScrollBar from "perfect-scrollbar";
+import "perfect-scrollbar/css/perfect-scrollbar.css";
 
 // const setFormToLocalStorage = (form = []) => {
 //   localStorage.setItem("templateForm", JSON.stringify(form.filter(v => v)));
@@ -105,7 +94,8 @@ export default {
     RenderToEditing
   },
   props: {
-    form: Array
+    form: Array,
+    formName: String
   },
 
   watch: {
@@ -296,15 +286,22 @@ export default {
     // radioCheckboxRemove(item) {
     //   this.radioCheckboxList.$remove(item);
     // }
+    handleNameEditorInput(val) {
+      this.nameEditor.msg = val;
+      this.$emit("change-name", val);
+    },
     initPropsIntoData() {
       if (this.form) {
         this.sortable_item = this.form;
+      }
+      if (this.formName) {
+        this.nameEditor.msg = this.formName;
       }
     }
   },
   mounted() {
     /* eslint-disable */
-    // new ScrollBar("#sortable_form");
+    new ScrollBar("#sortable_form");
   },
   created() {
     // this.sortable_item = JSON.parse(
@@ -324,6 +321,22 @@ export default {
   &-main {
     .layout-main;
     overflow: hidden;
+
+    .update-name {
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      height: 100px;
+      background: #f5f5f5;
+      padding: 20px;
+      &-input {
+        width: 85%;
+        margin-right: 5%;
+      }
+      button {
+        width: 10%;
+      }
+    }
   }
 }
 
