@@ -359,8 +359,7 @@ export default {
 
 /* 设置items下所有鼠标样式为 move */
 
-.items,
-.items * {
+.items {
   cursor: move;
 }
 

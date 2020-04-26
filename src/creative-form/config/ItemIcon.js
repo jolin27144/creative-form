@@ -3,43 +3,45 @@ export default (_self, h) => {
   // 修改按钮
   if (_self.obj.config && _self.obj.type !== "signature") {
     icons.push(
-      h("Icon", {
-        props: {
-          type: "gear-a",
-          value: "33"
-        },
-        nativeOn: {
-          click() {
-            _self.$emit("handleConfEle", {
-              index: _self.index,
-              id: _self.obj.label + _self.index
-            });
+      h(
+        "Button",
+        {
+          props: {
+            value: "33",
+            icon: "md-create"
+          },
+          on: {
+            click() {
+              _self.$emit("handleConfEle", {
+                index: _self.index,
+                id: _self.obj.label + _self.index
+              });
+            }
           }
         },
-        domProps: {
-          innerHTML: "修改"
-        }
-      })
+        "修改"
+      )
     );
   }
   // 删除按钮
   icons.push(
-    h("Icon", {
-      props: {
-        type: "trash-a"
-      },
-      nativeOn: {
-        click(e) {
-          _self.$emit("handleRemoveEle", _self.index);
-          e.stopPropagation();
+    h(
+      "Button",
+      {
+        props: {
+          icon: "md-trash"
+        },
+        on: {
+          click(e) {
+            _self.$emit("handleRemoveEle", _self.index);
+            e.stopPropagation();
+          }
         }
       },
-      domProps: {
-        innerHTML: "删除"
-      }
-    })
+      "删除"
+    )
   );
-  const item_icon = h(
+  return h(
     "div",
     {
       class: {
@@ -48,5 +50,4 @@ export default (_self, h) => {
     },
     icons
   );
-  return item_icon;
 };
