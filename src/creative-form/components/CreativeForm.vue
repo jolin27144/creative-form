@@ -1,5 +1,5 @@
 <template>
-  <div class="manage">
+  <div class="manage cf">
     <ul class="modal-tab">
       <li
         v-for="(item, index) in tabs.list"
@@ -11,8 +11,14 @@
       </li>
     </ul>
     <div class="btn-bar">
-      <span class="btn" @click="handlePreview">预览内容</span>
-      <span class="btn" @click="handleSave">完成编辑</span>
+      <Button class="btn" @click="handlePreview">
+        <Icon type="md-eye" />
+        预览
+      </Button>
+      <Button type="primary" class="btn" @click="handleSave">
+        <Icon type="md-checkmark" />
+        完成
+      </Button>
     </div>
     <div v-show="tabs.step === 0" class="modal-tab-step attribute">
       <div class="modal-tab-title">
@@ -163,9 +169,53 @@ export default {
 };
 </script>
 <style lang="less">
-@import "~../assets/css/configure.css";
+@import "../assets/css/configure";
+@import "../assets/css/theme.less";
 
-.attribute {
-  height: calc(100% - 40px);
+.cf {
+  .btn-bar {
+    position: absolute;
+    right: 16%;
+    top: 90px;
+    button {
+      font-size: 16px;
+      &:first-of-type {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .ivu-form-item-label {
+    /*text-align: left;*/
+  }
+  .modal-tab {
+    &-title {
+      margin-bottom: 20px;
+      height: auto;
+      &:after {
+        .divider;
+      }
+      h3 {
+        &:before {
+          background-color: @primary-color;
+        }
+      }
+    }
+    li {
+      &.on {
+        &:before {
+          background-color: @primary-color;
+        }
+      }
+    }
+  }
+
+  .attribute {
+    height: calc(100% - 40px);
+
+    .ivu-form {
+      padding: 0 140px;
+    }
+  }
 }
 </style>

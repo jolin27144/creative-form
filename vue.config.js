@@ -3,6 +3,10 @@ module.exports = {
 
   runtimeCompiler: true,
 
+  css: {
+    sourceMap: true
+  },
+
   devServer: {
     proxy: {
       // 服务器接口

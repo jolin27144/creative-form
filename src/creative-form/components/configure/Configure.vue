@@ -3,90 +3,86 @@
     <div class="modal-tab-title">
       <h3>模版内容编辑区域</h3>
     </div>
-    <div class="sortable-container">
-      <Form :label-width="80" class="b-a">
-        <draggable
-          :clone="cloneData"
-          :list="formList"
-          ghost-class="ghost"
-          :animation="0"
-          :group="{ name: 'shared', pull: 'clone', revertClone: false }"
-          :sort="false"
+    <main class="container-main">
+      <div class="sortable-container">
+        <Form :label-width="80" class="b-a">
+          <!--          <draggable-->
+          <!--            :clone="cloneData"-->
+          <!--            :list="formList"-->
+          <!--            ghost-class="ghost"-->
+          <!--            :animation="0"-->
+          <!--            :group="{ name: 'shared', pull: 'clone', revertClone: false }"-->
+          <!--            :sort="false"-->
+          <!--          >-->
+          <!--            <transition-group-->
+          <!--              class="form-list-group"-->
+          <!--              type="transition"-->
+          <!--              name="flip-list"-->
+          <!--              tag="div"-->
+          <!--            >-->
+          <!--              <RenderToDraggable-->
+          <!--                v-for="(element, index) in formList"-->
+          <!--                :key="element.ele + index"-->
+          <!--                :item="element"-->
+          <!--              ></RenderToDraggable>-->
+          <RenderToDraggable :list="formList"></RenderToDraggable>
+          <!--            </transition-group>-->
+          <!--          </draggable>-->
+        </Form>
+      </div>
+      <div class="sortable-item b-a">
+        <Form
+          ref="formValidate"
+          id="sortable_form"
+          class="sortable-form"
+          :model="formData"
+          @submit.native.prevent
         >
-          <transition-group
-            class="form-list-group"
-            type="transition"
-            name="flip-list"
-            tag="div"
+          <div class="form-title" v-if="!nameEditor.active">
+            {{ nameEditor.msg }}
+          </div>
+          <div class="update-name" v-else>
+            <Input v-model="nameEditor.msg" placeholder="请输入模版名称" />
+          </div>
+          <draggable
+            class="draggable-div"
+            :list="sortable_item"
+            ghost-class="ghost"
+            :animation="0"
+            :group="{ put: ['shared'] }"
           >
-            <!--            <RenderToEditing-->
-            <!--              v-for="(element, index) in formList"-->
-            <!--              :key="element.ele + index"-->
-            <!--              :ele="element.ele"-->
-            <!--              :obj="element.obj"-->
-            <!--            >-->
-            <!--            </RenderToEditing>-->
-            <RenderToDraggable
-              v-for="(element, index) in formList"
-              :key="element.ele + index"
-              :item="element"
-            ></RenderToDraggable>
-          </transition-group>
-        </draggable>
-      </Form>
-    </div>
-    <div class="sortable-item">
-      <Form
-        ref="formValidate"
-        id="sortable_form"
-        class="sortable-form b-a"
-        :model="formData"
-        @submit.native.prevent
-      >
-        <div class="form-title" v-if="!nameEditor.active">
-          {{ nameEditor.msg }}
-        </div>
-        <div class="update-name" v-else>
-          <Input v-model="nameEditor.msg" placeholder="请输入模版名称" />
-        </div>
-        <draggable
-          class="draggable-div"
-          :list="sortable_item"
-          ghost-class="ghost"
-          :animation="0"
-          :group="{ put: ['shared'] }"
-        >
-          <transition-group
-            class="form-list-group label-common-form"
-            type="transition"
-            name="flip-list"
-            tag="div"
-          >
-            <RenderToEditing
-              @handleRemoveEle="removeEle"
-              @handleConfEle="confEle"
-              @changeVisibility="changeVisibility"
-              v-for="(element, index) in sortable_item"
-              :key="element.ele + index"
-              :index="index"
-              :ele="element.ele"
-              :obj="element.obj || {}"
-              :data="formData"
-              @handleChangeVal="val => handleChangeVal(val, element)"
-              :sortableItem="sortable_item"
-              :config-icon="true"
+            <transition-group
+              class="form-list-group label-common-form"
+              type="transition"
+              name="flip-list"
+              tag="div"
             >
-            </RenderToEditing>
-          </transition-group>
-        </draggable>
-        <Edit
-          v-if="showEditingModal"
-          :show.sync="showEditingModal"
-          :sortable_item="sortable_item"
-          :editingModalData.sync="editingModalData"
-        ></Edit>
-      </Form>
-    </div>
+              <RenderToEditing
+                @handleRemoveEle="removeEle"
+                @handleConfEle="confEle"
+                @changeVisibility="changeVisibility"
+                v-for="(element, index) in sortable_item"
+                :key="element.ele + index"
+                :index="index"
+                :ele="element.ele"
+                :obj="element.obj || {}"
+                :data="formData"
+                @handleChangeVal="val => handleChangeVal(val, element)"
+                :sortableItem="sortable_item"
+                :config-icon="true"
+              >
+              </RenderToEditing>
+            </transition-group>
+          </draggable>
+          <Edit
+            v-if="showEditingModal"
+            :show.sync="showEditingModal"
+            :sortable_item="sortable_item"
+            :editingModalData.sync="editingModalData"
+          ></Edit>
+        </Form>
+      </div>
+    </main>
   </div>
 </template>
 <script>
@@ -319,10 +315,16 @@ export default {
 };
 </script>
 <style lang="less">
-@import "../../assets/css/configure.css";
+@import "../../assets/css/configure";
+@import "../../assets/css/theme.less";
 
 .container {
   height: calc(100% - 80px);
+
+  &-main {
+    .layout-main;
+    overflow: hidden;
+  }
 }
 
 .inline {
@@ -370,9 +372,9 @@ export default {
 
 /* 表单校验选项样式 */
 
-.ivu-form-item-required .ivu-form-item-label::before {
-  content: "";
-}
+/*.ivu-form-item-required .ivu-form-item-label::before {*/
+/*content: "";*/
+/*}*/
 
 .items.sortable-items-required .ivu-form-item-label::before {
   display: inline-block;
