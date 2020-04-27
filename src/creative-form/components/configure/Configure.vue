@@ -74,14 +74,14 @@
         </Form>
       </div>
     </main>
-    <Modal
-      title="电子签名"
-      v-model="showEsign"
-      @on-ok="handleEsignOk"
-      @on-cancel="handleEsignCancel"
-    >
-      <vue-esign></vue-esign>
-    </Modal>
+    <!--    <Modal-->
+    <!--      title="电子签名"-->
+    <!--      v-model="showEsign"-->
+    <!--      @on-ok="handleEsignOk"-->
+    <!--      @on-cancel="handleEsignCancel"-->
+    <!--    >-->
+    <!--      <vue-esign></vue-esign>-->
+    <!--    </Modal>-->
   </div>
 </template>
 <script>

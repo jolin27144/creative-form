@@ -1,6 +1,14 @@
 <template>
   <div id="app">
-    <CreativeForm :original="data" @output="handleOutput"></CreativeForm>
+    <CreativeForm
+      v-show="!phone"
+      :original="data"
+      @output="handleOutput"
+    ></CreativeForm>
+    <CreativeFormMobileEditor
+      v-show="phone"
+      :template="data"
+    ></CreativeFormMobileEditor>
   </div>
 </template>
 
@@ -15,17 +23,61 @@
 export default {
   data() {
     return {
+      phone: true,
+
       // 模板数据
       data: {
         id: "709394",
-        // 模板名称
         name: "测试标题",
-        // 模板状态
         status: false,
-        // 描述
         description: "",
-        // 表单数据
         form: [
+          {
+            ele: "signature",
+            obj: {
+              type: "signature",
+              config: true,
+              label: "签名",
+              img: "",
+              showEsign: false,
+              inlineBlock: false,
+              require: true,
+              value: "",
+              items: [
+                { label_value: true, label_name: "是" },
+                { label_value: false, label_name: "否" }
+              ],
+              name: "签名0",
+              ruleError: "请选择",
+              relation: false,
+              relation_name: "",
+              relation_value: "",
+              visibility: true,
+              index: 1
+            }
+          },
+          {
+            ele: "radio",
+            obj: {
+              type: "radio",
+              config: true,
+              label: "单选",
+              inlineBlock: false,
+              require: true,
+              value: "1",
+              items: [
+                { label_value: "1", label_name: "是" },
+                { label_value: "0", label_name: "否" }
+              ],
+              name: "单选1",
+              ruleError: "请选择",
+              relation: false,
+              relation_name: "",
+              relation_value: "",
+              visibility: true,
+              index: 2
+            }
+          },
           {
             ele: "checkbox",
             obj: {
@@ -34,21 +86,39 @@ export default {
               label: "多选",
               inlineBlock: false,
               require: true,
-              value: [],
+              value: ["2"],
               items: [
-                { label_value: "1", label_name: "选项1asdfa" },
-                { label_value: "2", label_name: "选项2asdfasdf" }
+                { label_value: "1", label_name: "选项1" },
+                { label_value: "2", label_name: "选项2" }
               ],
-              name: "多选0",
+              name: "多选2",
               ruleError: "该选项不能为空",
               relation: false,
               relation_name: "",
               relation_value: "",
               visibility: true,
-              modalTitle: "多选",
-              index: 1,
-              loading: false,
-              listIndex: 0
+              index: 3
+            }
+          },
+          {
+            ele: "input",
+            obj: {
+              type: "input",
+              config: true,
+              label: "单行文本",
+              placeholder: "",
+              inlineBlock: false,
+              require: true,
+              maxLength: 400,
+              items: [{ label_value: null, label_name: "" }],
+              value: "dfasfasdfadsfasf",
+              name: "单行文本3",
+              ruleError: "该字段不能为空",
+              relation: false,
+              relation_name: "",
+              relation_value: "",
+              visibility: true,
+              index: 4
             }
           },
           {
@@ -62,43 +132,17 @@ export default {
               maxLength: 200,
               require: true,
               maxRows: 5,
-              value: "",
-              name: "多行文本1",
+              value: "asdfdsafasfsdafasdfsafdsfsfdasf",
+              name: "多行文本4",
               ruleError: "该字段不能为空",
               relation: false,
               relation_name: "",
               relation_value: "",
               visibility: true,
-              modalTitle: "多行文本",
-              index: 2
-            }
-          },
-          {
-            ele: "radio",
-            obj: {
-              type: "radio",
-              config: true,
-              label: "单选",
-              inlineBlock: false,
-              require: true,
-              value: "",
-              items: [
-                { label_value: true, label_name: "是" },
-                { label_value: false, label_name: "否" }
-              ],
-              name: "单选2",
-              ruleError: "请选择",
-              relation: false,
-              relation_name: "",
-              relation_value: "",
-              visibility: true,
-              modalTitle: "单选",
-              index: 3
+              index: 5
             }
           }
-        ],
-        // 签名图片
-        signImage: ""
+        ]
       }
     };
   },
@@ -109,3 +153,9 @@ export default {
   }
 };
 </script>
+
+<style>
+#app {
+  height: 100%;
+}
+</style>

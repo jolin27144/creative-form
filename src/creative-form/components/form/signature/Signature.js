@@ -1,8 +1,5 @@
 export default (_self, h) => {
   return [
-    // h("vue-esign", {
-    //   ref: "vue-esign"
-    // })
     h(
       "div",
       {
@@ -12,7 +9,7 @@ export default (_self, h) => {
         h("img", {
           class: "esign-picture",
           attrs: {
-            src: _self.esignPictrue || ""
+            src: _self.obj.img || ""
           }
         }),
         h(
@@ -20,11 +17,66 @@ export default (_self, h) => {
           {
             on: {
               click() {
-                _self.$emit("showEsign");
+                _self.obj.showEsign = true;
               }
             }
           },
           "开始签名"
+        ),
+        h(
+          "Modal",
+          {
+            class: "vue-esign-modal",
+            props: {
+              value: _self.obj.showEsign
+            },
+            on: {
+              "on-cancel"() {
+                _self.obj.showEsign = false;
+              }
+            }
+          },
+          [
+            h("vue-esign", {
+              ref: "vue-esign"
+            }),
+            h("div", [
+              h(
+                "Button",
+                {
+                  on: {
+                    click() {
+                      _self.$refs["vue-esign"].reset();
+                    }
+                  }
+                },
+                "清除"
+              ),
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "primary"
+                  },
+                  on: {
+                    click() {
+                      _self.$refs["vue-esign"]
+                        .generate()
+                        .then(res => {
+                          _self.obj.img = res;
+                          _self.obj.showEsign = false;
+                        })
+                        .catch(() => {
+                          _self.obj.img = "";
+                          _self.obj.showEsign = false;
+                        });
+                    }
+                  }
+                },
+                "确定"
+              )
+            ])
+          ]
         )
       ]
     )
@@ -38,6 +90,10 @@ export const signatureConf = {
   config: true,
   // 控件左侧label内容
   label: "签名",
+  // 签名控件
+  img: "",
+  // 显示签名控件
+  showEsign: false,
   // 是否显示行内元素
   inlineBlock: false,
   // 是否必填

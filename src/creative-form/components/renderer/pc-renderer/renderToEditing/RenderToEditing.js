@@ -13,7 +13,7 @@ import datepicker from "../../../form/datepicker/DatePicker";
 import signature from "../../../form/signature/Signature";
 // import address from './control/Address';
 
-import trigger from "../../../../config/trigger";
+// import trigger from "../../../../config/trigger";
 
 const form_item = {
   title,
@@ -69,6 +69,7 @@ export default {
     this.$set(
       this.obj,
       "value",
+      // typeof this.value !== "undefined" ? this.value : this.obj.value
       typeof this.value !== "undefined" ? this.value : this.obj.value
     );
 
@@ -112,25 +113,25 @@ export default {
               ? this.obj.index + "." + (this.obj.label || this.ele) + ""
               : (this.obj.label || this.ele) + "",
             // 指定验证name
-            prop: this.obj.name || "temp",
+            prop: this.obj.name || "temp"
             // 验证规则
-            rules: {
-              required: validate,
-              message: this.obj.ruleError || "该项为必填项",
-              trigger: trigger[this.obj.type],
-              validator: (rule, value, callback) => {
-                // 没有配置按钮并且允许验证
-                if (
-                  !this.configIcon &&
-                  validate &&
-                  (Array.isArray(value) ? !value.length : !value)
-                ) {
-                  callback(new Error("该项为必填项"));
-                } else {
-                  callback();
-                }
-              }
-            }
+            // rules: {
+            //   required: validate,
+            //   message: this.obj.ruleError || "该项为必填项",
+            //   trigger: trigger[this.obj.type],
+            //   validator: (rule, value, callback) => {
+            //     // 没有配置按钮并且允许验证
+            //     if (
+            //       !this.configIcon &&
+            //       validate &&
+            //       (Array.isArray(value) ? !value.length : !value)
+            //     ) {
+            //       callback(new Error("该项为必填项"));
+            //     } else {
+            //       callback();
+            //     }
+            //   }
+            // }
           },
           on: {
             handleConfEle(val) {
@@ -213,7 +214,6 @@ export default {
       default() {
         return [];
       }
-    },
-    esignPictrue: String
+    }
   }
 };

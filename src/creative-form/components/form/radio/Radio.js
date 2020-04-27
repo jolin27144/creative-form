@@ -49,11 +49,11 @@ export let radioConf = {
   // 选项内数据
   items: [
     {
-      label_value: true,
+      label_value: "1",
       label_name: "是"
     },
     {
-      label_value: false,
+      label_value: "0",
       label_name: "否"
     }
   ],

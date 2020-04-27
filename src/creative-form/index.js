@@ -1,7 +1,12 @@
 import CreativeForm from "./components/CreativeForm";
 import CreativeFormPreviewer from "./components/CreativeFormPreviewer";
+import CreativeFormMobileEditor from "./components/CreativeFormMobileEditor";
 
-const componentsToExport = [CreativeForm, CreativeFormPreviewer];
+const componentsToExport = [
+  CreativeForm,
+  CreativeFormPreviewer,
+  CreativeFormMobileEditor
+];
 
 const install = function(Vue) {
   componentsToExport.forEach(component => {
@@ -20,3 +25,4 @@ export default {
 
 export { default as CreativeForm } from "./components/CreativeForm";
 export { default as CreativeFormPreviewer } from "./components/CreativeFormPreviewer";
+export { default as CreativeFormMobileEditor } from "./components/renderer/mobile-renderer/MobileRenderer";
