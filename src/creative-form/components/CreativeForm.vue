@@ -54,17 +54,15 @@
     ></Configure>
 
     <div class="pop-modal" v-if="preview.flag">
-      <!--      <div class="pop-content">-->
-      <!--        <div class="pop-title">-->
-      <!--          <span>{{ preview.title }}</span>-->
-      <!--          <a class="ivu-modal-close" @click="handlePreviewClose">-->
-      <!--            <i class="ivu-icon ivu-icon-ios-close"></i>-->
-      <!--          </a>-->
-      <!--        </div>-->
-      <PreviewForm
-        :template="outputData"
-        @close="handlePreviewClose"
-      ></PreviewForm>
+      <div class="pop-content">
+        <div class="pop-title">
+          <span>{{ preview.title }}</span>
+          <a class="ivu-modal-close" @click="handlePreviewClose">
+            <i class="ivu-icon ivu-icon-ios-close"></i>
+          </a>
+        </div>
+        <PreviewForm :template="outputData"></PreviewForm>
+      </div>
     </div>
   </div>
 </template>
