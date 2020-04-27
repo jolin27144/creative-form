@@ -198,6 +198,36 @@ export default {
     }
   }
 
+  .modal-tab {
+    &-title {
+      margin-bottom: 20px;
+      height: auto;
+      &:after {
+        .divider;
+      }
+      h3 {
+        &:before {
+          background-color: @primary-color;
+        }
+      }
+    }
+
+    li {
+      &.on {
+        &:before {
+          background-color: @primary-color;
+        }
+      }
+    }
+  }
+
+  .attribute {
+    height: calc(100% - 40px);
+
+    .ivu-form {
+      padding: 0 140px;
+    }
+  }
   .ivu-form-item-label {
     /*text-align: left;*/
   }
@@ -215,36 +245,6 @@ export default {
   .ivu-radio-inner::after {
     background-color: #2d8cf0 !important;
   }
-  .modal-tab {
-    &-title {
-      margin-bottom: 20px;
-      height: auto;
-      &:after {
-        .divider;
-      }
-      h3 {
-        &:before {
-          background-color: @primary-color;
-        }
-      }
-    }
-    li {
-      &.on {
-        &:before {
-          background-color: @primary-color;
-        }
-      }
-    }
-  }
-
-  .attribute {
-    height: calc(100% - 40px);
-
-    .ivu-form {
-      padding: 0 140px;
-    }
-  }
-
   .ivu-checkbox-checked .ivu-checkbox-inner,
   .ivu-checkbox-indeterminate .ivu-checkbox-inner {
     background-color: @primary-color !important;

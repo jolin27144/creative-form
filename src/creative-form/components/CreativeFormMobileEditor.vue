@@ -10,14 +10,15 @@
         :obj="item.obj"
       ></MobileRenderer>
       <Button class="cfme-form-submit" type="primary" @click="handleSubmit"
-        >确认提交</Button
-      >
+        >确认提交
+      </Button>
     </Form>
   </div>
 </template>
 
 <script>
 import MobileRenderer from "./renderer/mobile-renderer/MobileRenderer";
+
 export default {
   name: "CreativeFormMobileEditor",
   components: { MobileRenderer },
@@ -37,16 +38,20 @@ export default {
 
 <style lang="less">
 @import "../assets/css/theme.less";
+
 .cfme {
   height: 100%;
+
   &-title,
   &-form {
     padding: 10px;
   }
+
   &-title {
     position: relative;
     left: 20px;
     width: calc(100% - 20px);
+
     &:before {
       content: "";
       display: inline-block;
@@ -58,11 +63,13 @@ export default {
       background: @primary-color;
     }
   }
+
   &-divider {
     display: block;
     height: 10px;
     background: #eee;
   }
+
   &-form {
     height: calc(100% - 51px);
     overflow: auto;
@@ -70,10 +77,12 @@ export default {
     &-submit {
       width: 100%;
     }
+
     .ivu-form-item {
       padding-bottom: 24px;
       border-bottom: 1px solid #eee;
     }
+
     .ivu-form-item-label {
       font-size: 16px !important;
       font-weight: 500;
@@ -84,24 +93,61 @@ export default {
       display: block;
       float: none;
     }
+
     .items {
       cursor: unset;
     }
+
     .ivu-checkbox-checked .ivu-checkbox-inner {
       border-color: #2d8cf0 !important;
       background-color: #2d8cf0 !important;
     }
   }
+
+  .ivu-form-item-label {
+    /*text-align: left;*/
+  }
+
+  .ivu-input:hover,
+  textarea.ivu-input:hover {
+    border-color: #57a3f3 !important;
+  }
+
+  .ivu-btn-primary {
+    background-color: #2d8cf0 !important;
+    border-color: #2d8cf0 !important;
+  }
+
+  .ivu-radio-checked .ivu-radio-inner {
+    border-color: #2d8cf0 !important;
+  }
+
+  .ivu-radio-inner::after {
+    background-color: #2d8cf0 !important;
+  }
+
+  .ivu-checkbox-checked .ivu-checkbox-inner,
+  .ivu-checkbox-indeterminate .ivu-checkbox-inner {
+    background-color: @primary-color !important;
+    border-color: @primary-color !important;
+  }
+
+  .ivu-modal-footer .ivu-btn {
+    border-color: @primary-color !important;
+  }
 }
+
 .vue-esign-modal {
   .ivu-modal-body {
     button {
       &:first-of-type {
         margin-right: 5%;
       }
+
       width: 45%;
     }
   }
+
   .ivu-modal-footer {
     height: 0;
     visibility: hidden;

@@ -1,0 +1,12 @@
+POST http://localhost:80/api/item
+Content-Type: application/x-www-form-urlencoded
+
+id=99&content=new-element
+
+###
+POST https://19.202.174.129/view-server/template/deleteTemplates
+Content-Type: application/x-www-form-urlencoded
+
+ids=10
+
+###
