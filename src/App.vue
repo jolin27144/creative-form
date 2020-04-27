@@ -141,6 +141,26 @@ export default {
               visibility: true,
               index: 5
             }
+          },
+          {
+            ele: "datepicker",
+            obj: {
+              type: "datepicker",
+              config: true,
+              label: "时间控件",
+              placeholder: "",
+              inlineBlock: false,
+              require: true,
+              name: "时间控件5",
+              value: "2020年04月14日",
+              ruleError: "选项不能为空",
+              relation: false,
+              relation_name: "",
+              relation_value: "",
+              visibility: true,
+              format: "yyyy年MM月dd日",
+              index: 6
+            }
           }
         ]
       }
