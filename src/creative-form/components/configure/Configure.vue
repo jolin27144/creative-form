@@ -89,7 +89,7 @@ import draggable from "vuedraggable";
 import formList from "../../config/FormList";
 import RenderToEditing from "../renderer/pc-renderer/renderToEditing/RenderToEditing";
 import Edit from "../edit/Edit";
-import RenderToDraggable from "../renderer/pc-renderer/renderToDragable/RenderToDraggable";
+import RenderToDraggable from "../renderer/pc-renderer/renderToDragable/RenderToDraggable.vue";
 import ScrollBar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 
@@ -113,6 +113,10 @@ export default {
       if (!val) {
         this.handleCancel();
       }
+    },
+
+    formName(val) {
+      this.nameEditor.msg = val;
     }
   },
   computed: {
@@ -169,7 +173,7 @@ export default {
       // 编辑标题
       nameEditor: {
         active: false,
-        msg: "测试"
+        msg: this.formName
       },
       showEsign: false,
       esignPictrue:

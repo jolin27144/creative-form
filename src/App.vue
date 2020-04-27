@@ -23,14 +23,14 @@
 export default {
   data() {
     return {
-      phone: true,
+      phone: false,
 
       // 模板数据
       data: {
         id: "709394",
         name: "测试标题",
         status: false,
-        description: "",
+        description: "这是描述描述",
         form: [
           {
             ele: "signature",
