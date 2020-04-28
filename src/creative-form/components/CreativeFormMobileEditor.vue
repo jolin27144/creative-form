@@ -1,7 +1,7 @@
 <template>
   <div class="cfme">
-    <div class="cfme-title">{{ template.name }}</div>
-    <div class="cfme-divider"></div>
+    <!--    <div class="cfme-title">{{ template.name }}</div>-->
+    <!--    <div class="cfme-divider"></div>-->
     <Form class="cfme-form">
       <MobileRenderer
         v-for="(item, index) in template.form"

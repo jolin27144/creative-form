@@ -166,7 +166,7 @@ export default {
         {
           id: this.original.id,
           name: this.original.name,
-          status: this.original.status,
+          status: this.original.status ? "停用" : "启用",
           description: this.original.description
         }
       );
