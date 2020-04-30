@@ -22,7 +22,11 @@
             editingModalData.type === 'checkbox'
         "
       >
-        <div v-for="item in radioCheckboxList" :key="item.label_value">
+        <div
+          v-for="item in radioCheckboxList"
+          :key="item.label_value"
+          class="edit-r-c"
+        >
           <i-input v-model="item.label_name" placeholder=""></i-input>
           <i-button @click="radioCheckboxRemove(item.label_value)"
             >删除</i-button
@@ -151,6 +155,9 @@ export default {
   .ivu-input-wrapper {
     width: 85% !important;
     margin-right: 5%;
+  }
+
+  .edit-r-c {
   }
 }
 </style>
