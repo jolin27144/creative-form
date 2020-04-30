@@ -167,7 +167,7 @@ export default {
           id: this.original.id,
           name: this.original.name,
           status: this.original.status ? "停用" : "启用",
-          description: this.original.description
+          notes: this.original.notes
         }
       );
       this.formForConfigure = JSON.parse(JSON.stringify(this.original.form));
