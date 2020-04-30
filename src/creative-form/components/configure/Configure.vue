@@ -22,7 +22,7 @@
             v-if="!nameEditor.active"
             @click="nameEditor.active = true"
           >
-            {{ nameEditor.msg }}
+            {{ nameEditor.msg || "请输入模板名称" }}
           </div>
           <div class="update-name" v-else>
             <Input
