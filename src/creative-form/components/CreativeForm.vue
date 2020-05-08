@@ -199,7 +199,7 @@ export default {
   .modal-tab {
     &-title {
       margin-bottom: 20px;
-      height: auto;
+      /*height: auto;*/
       &:after {
         .divider;
       }
@@ -251,6 +251,16 @@ export default {
 
   .ivu-modal-footer .ivu-btn {
     border-color: @primary-color!important;
+  }
+
+  a {
+    color: #333;
+  }
+  a:active {
+    color: #2b85e4;
+  }
+  a:hover {
+    color: #57a3f3;
   }
 }
 </style>

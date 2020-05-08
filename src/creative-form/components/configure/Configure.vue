@@ -5,7 +5,20 @@
     </div>
     <main class="container-main">
       <div class="sortable-container">
-        <Form :label-width="80" class="b-a">
+        <ul class="sortable-container--tabs">
+          <li @click="isOutline = false" :class="{ active: !isOutline }">
+            题型选择
+          </li>
+          <li @click="isOutline = true" :class="{ active: isOutline }">大纲</li>
+        </ul>
+        <ul v-show="isOutline" class="sortable-container--outline">
+          <li v-for="(item, index) in form" :key="item.obj.label">
+            <a :href="`#${item.obj.label}`">
+              {{ `${++index}.${item.obj.label}` }}
+            </a>
+          </li>
+        </ul>
+        <Form :label-width="80" v-show="!isOutline">
           <RenderToDraggable :list="formList"></RenderToDraggable>
         </Form>
       </div>
@@ -130,7 +143,8 @@ export default {
         msg: this.formName
       },
       showEsign: false,
-      esignPictrue: ""
+      esignPictrue: "",
+      isOutline: false
     };
   },
   methods: {
@@ -243,6 +257,7 @@ export default {
   &-main {
     .layout-main;
     overflow: hidden;
+    height: calc(100% - 80px);
 
     .update-name {
       box-sizing: border-box;
@@ -251,10 +266,12 @@ export default {
       height: 100px;
       background: #f5f5f5;
       padding: 20px;
+
       &-input {
         width: 85%;
         margin-right: 5%;
       }
+
       button {
         width: 10%;
       }
@@ -319,8 +336,42 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   .esign-picture {
     width: 80%;
+  }
+}
+
+.sortable-container {
+  border: 1px solid #e8eaec;
+  border-right: none !important;
+  &--tabs {
+    display: flex;
+    margin: 10px 10px 0;
+    padding: 10px;
+    background: #f2f2f2;
+    min-height: 40px;
+    font-size: 16px;
+    li {
+      flex: 0 1 50%;
+      text-align: center;
+      line-height: 40px;
+      cursor: pointer;
+      transition: background-color 0.1s ease-in;
+    }
+
+    .active {
+      background: #fff;
+    }
+  }
+  &--outline {
+    padding: 10px;
+    height: calc(100% - 50px);
+    overflow: auto;
+    li {
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
   }
 }
 </style>
