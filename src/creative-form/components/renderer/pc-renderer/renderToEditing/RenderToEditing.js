@@ -57,6 +57,8 @@ const displayControl = (_self, sortableItem, name, value) => {
 export default {
   name: "RenderToEditing",
 
+  inheritAttrs: false,
+
   render(h) {
     var $this = this;
     // 获取当前控件渲染
@@ -106,7 +108,8 @@ export default {
             "sortable-items-required": validate
           },
           attrs: {
-            id: this.obj.label + $this.index
+            // id: this.obj.label + $this.index
+            id: this.obj.label
           },
           props: {
             label: this.obj.index
