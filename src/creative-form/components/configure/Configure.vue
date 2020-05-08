@@ -12,7 +12,7 @@
           <li @click="isOutline = true" :class="{ active: isOutline }">大纲</li>
         </ul>
         <ul v-show="isOutline" class="sortable-container--outline">
-          <li v-for="(item, index) in form" :key="item.obj.label">
+          <li v-for="(item, index) in form" :key="item.obj.label + index">
             <a :href="`#${item.obj.label}`">
               {{ `${++index}.${item.obj.label}` }}
             </a>

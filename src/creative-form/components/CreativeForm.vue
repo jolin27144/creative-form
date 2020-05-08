@@ -4,7 +4,7 @@
       <li
         v-for="(item, index) in tabs.list"
         :class="[index === tabs.step ? 'on' : '']"
-        :key="item.type"
+        :key="item.type + index"
         @click="handleSwitchTab(index)"
       >
         {{ item.name }}
