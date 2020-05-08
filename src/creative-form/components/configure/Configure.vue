@@ -74,14 +74,6 @@
         </Form>
       </div>
     </main>
-    <!--    <Modal-->
-    <!--      title="电子签名"-->
-    <!--      v-model="showEsign"-->
-    <!--      @on-ok="handleEsignOk"-->
-    <!--      @on-cancel="handleEsignCancel"-->
-    <!--    >-->
-    <!--      <vue-esign></vue-esign>-->
-    <!--    </Modal>-->
   </div>
 </template>
 <script>
@@ -93,9 +85,6 @@ import RenderToDraggable from "../renderer/pc-renderer/renderToDragable/RenderTo
 import ScrollBar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 
-// const setFormToLocalStorage = (form = []) => {
-//   localStorage.setItem("templateForm", JSON.stringify(form.filter(v => v)));
-// };
 export default {
   components: {
     RenderToDraggable,
@@ -119,42 +108,7 @@ export default {
       this.nameEditor.msg = val;
     }
   },
-  computed: {
-    // // 数据字典已选择项
-    // dataDictSelected() {
-    //   return this.sortable_item.map(v => {
-    //     const obj = JSON.parse(v.obj.dict || "{}");
-    //     return obj.id || -1;
-    //   });
-    // },
-    // 对应控件的数据字典
-    // dataDictList() {
-    //   return this.dataDict.filter(v => {
-    //     return v.type == this.editingModalData.type;
-    //   });
-    // }
-    // // 被关联字段列表
-    // relationList() {
-    //   // 只有type内三项可作为被关联字段
-    //   let type = ["select", "radio", "checkbox"];
-    //   const arr = this.sortable_item.filter(k => {
-    //     return type.indexOf(k.ele) >= 0 && !!k.obj.name;
-    //   });
-    //   return arr;
-    // },
-    // // 被关联字段数据
-    // relationValue() {
-    //   const name = this.editingModalData.relation_name;
-    //   let items = [];
-    //   if (!name) return items;
-    //   for (let i in this.sortable_item) {
-    //     if (this.sortable_item[i].obj.name == name) {
-    //       items = this.sortable_item[i].obj.items;
-    //     }
-    //   }
-    //   return items;
-    // }
-  },
+
   data() {
     return {
       // 可配置控件
@@ -180,28 +134,6 @@ export default {
     };
   },
   methods: {
-    // // 克隆表单提交事件
-    // handleSubmit() {
-    //   // if (this.form.name === "" || this.form.status === "") {
-    //   //   this.$Notice.warning({
-    //   //     title: "模版属性不全",
-    //   //     desc: "请补充完整模版名称和状态才能完成编辑",
-    //   //     duration: 2
-    //   //   });
-    //   // }else{
-    //   setFormToLocalStorage(this.sortable_item);
-    //   this.$emit("save");
-    //   // }
-    // },
-    // // 预览表单
-    // handlePreview() {
-    //   setFormToLocalStorage(this.sortable_item);
-    //   this.$emit("func", true);
-    // },
-    // // 清空克隆表单
-    // handleReset() {
-    //   this.sortable_item = [];
-    // },
     handleEsignOk() {
       this.handleEsignCancel();
     },
@@ -221,28 +153,6 @@ export default {
       // 深拷贝对象，防止默认空对象被更改
       return JSON.parse(JSON.stringify(original));
     },
-    // // modal点击确定执行事件
-    // handleOk() {
-    //   const index = this.editingModalData.listIndex;
-    //   this.editingModalData.items = this.radioCheckboxList;
-    //
-    //   this.sortable_item[index].obj = Object.assign(
-    //     {},
-    //     this.sortable_item[index].obj,
-    //     this.editingModalData
-    //   );
-    //   this.handleCancel();
-    // },
-    // // modal点击取消执行事件，清空当前modal内容
-    // handleCancel() {
-    //   this.showEditingModal = false;
-    //   setTimeout(() => {
-    //     this.editingModalData = {
-    //       color: "",
-    //       loading: false
-    //     };
-    //   }, 500);
-    // },
     // 显示modal,配置被克隆控件
     confEle(data) {
       this.showEditingModal = false;
@@ -298,16 +208,6 @@ export default {
       this.$set(this.sortable_item[index].obj, "name", v.label + index);
       this.$set(this.sortable_item[index].obj, "visibility", visibility);
     },
-    // // radioCheckbox
-    // radioCheckboxAdd() {
-    //   this.radioCheckboxList.push({
-    //     label_value: parseInt(new Date().getTime() / 1000) + "",
-    //     label_name: ""
-    //   });
-    // },
-    // radioCheckboxRemove(item) {
-    //   this.radioCheckboxList.$remove(item);
-    // }
     handleNameEditorInput(val) {
       this.nameEditor.msg = val;
       this.$emit("change-name", val);
@@ -405,11 +305,6 @@ export default {
 }
 
 /* 表单校验选项样式 */
-
-/*.ivu-form-item-required .ivu-form-item-label::before {*/
-/*content: "";*/
-/*}*/
-
 .items.sortable-items-required .ivu-form-item-label::before {
   display: inline-block;
   margin-right: 4px;
