@@ -59,23 +59,51 @@
               name="flip-list"
               tag="div"
             >
-              <RenderToEditing
-                @handleRemoveEle="removeEle"
-                @handleConfEle="confEle"
-                @changeVisibility="changeVisibility"
-                v-for="(element, index) in sortable_item"
-                :key="element.ele + index"
-                :index="index"
-                :ele="element.ele"
-                :obj="element.obj || {}"
-                :data="formData"
-                @handleChangeVal="val => handleChangeVal(val, element)"
-                :sortableItem="sortable_item"
-                :config-icon="true"
-                @showEsign="showEsign = true"
-                :esign-pictrue="esignPictrue"
-              >
-              </RenderToEditing>
+              <template v-for="(element, index) in sortable_item">
+                <template
+                  v-if="
+                    element.obj.label === '整改结束时间' ||
+                      element.obj.label === '整改开始时间' ||
+                      element.obj.label === '需要整改镇街'
+                  "
+                >
+                  <RenderToEditing
+                    v-if="isVisible"
+                    @handleRemoveEle="removeEle"
+                    @handleConfEle="confEle"
+                    @changeVisibility="changeVisibility"
+                    :key="element.ele + index"
+                    :index="index"
+                    :ele="element.ele"
+                    :obj="element.obj || {}"
+                    :data="formData"
+                    @handleChangeVal="val => handleChangeVal(val, element)"
+                    :sortableItem="sortable_item"
+                    :config-icon="true"
+                    @showEsign="showEsign = true"
+                    :esign-pictrue="esignPictrue"
+                  >
+                  </RenderToEditing>
+                </template>
+                <template v-else>
+                  <RenderToEditing
+                    @handleRemoveEle="removeEle"
+                    @handleConfEle="confEle"
+                    @changeVisibility="changeVisibility"
+                    :key="element.ele + index"
+                    :index="index"
+                    :ele="element.ele"
+                    :obj="element.obj || {}"
+                    :data="formData"
+                    @handleChangeVal="val => handleChangeVal(val, element)"
+                    :sortableItem="sortable_item"
+                    :config-icon="true"
+                    @showEsign="showEsign = true"
+                    :esign-pictrue="esignPictrue"
+                  >
+                  </RenderToEditing>
+                </template>
+              </template>
             </transition-group>
           </draggable>
           <Edit
@@ -105,9 +133,20 @@ export default {
     draggable,
     RenderToEditing
   },
+
   props: {
     form: Array,
     formName: String
+  },
+
+  computed: {
+    isVisible() {
+      return (
+        this.form.find(item => {
+          return item.default && item.obj.label === "是否需要镇街核实企业整改";
+        }).obj.value !== "0"
+      );
+    }
   },
 
   watch: {
@@ -147,6 +186,7 @@ export default {
       isOutline: false
     };
   },
+
   methods: {
     handleEsignOk() {
       this.handleEsignCancel();
@@ -235,10 +275,12 @@ export default {
       }
     }
   },
+
   mounted() {
     /* eslint-disable */
     new ScrollBar("#sortable_form");
   },
+
   created() {
     // this.sortable_item = JSON.parse(
     //   localStorage.getItem("templateForm") || "[]"

@@ -5,7 +5,8 @@ export default (_self, h) => {
       {
         props: {
           placeholder: _self.obj.placeholder || "这是一个下拉选项框",
-          value: _self.obj.value || ""
+          value: _self.obj.value || "",
+          disabled: _self.obj.disable || false
         },
         on: {
           "on-change"(value) {
