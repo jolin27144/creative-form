@@ -3,12 +3,29 @@
     <!--    <div class="cfme-title">{{ template.name }}</div>-->
     <!--    <div class="cfme-divider"></div>-->
     <Form class="cfme-form">
-      <MobileRenderer
-        v-for="(item, index) in template.form"
-        :key="item.ele + index"
-        :ele="item.ele"
-        :obj="item.obj"
-      ></MobileRenderer>
+      <template v-for="(item, index) in template.form">
+        <template
+          v-if="
+            item.obj.label === '整改结束时间' ||
+              item.obj.label === '整改开始时间' ||
+              item.obj.label === '需要整改镇街'
+          "
+        >
+          <MobileRenderer
+            v-if="isVisible"
+            :key="item.ele + index"
+            :ele="item.ele"
+            :obj="item.obj"
+          ></MobileRenderer>
+        </template>
+        <template v-else>
+          <MobileRenderer
+            :key="item.ele + index"
+            :ele="item.ele"
+            :obj="item.obj"
+          ></MobileRenderer>
+        </template>
+      </template>
       <Button class="cfme-form-submit" type="primary" @click="handleSubmit"
         >确认提交
       </Button>
@@ -26,6 +43,15 @@ export default {
     template: {
       type: Object,
       default: () => {}
+    }
+  },
+  computed: {
+    isVisible() {
+      return (
+        this.template.form.find(item => {
+          return item.default && item.obj.label === "是否需要镇街核实企业整改";
+        }).obj.value !== "0"
+      );
     }
   },
   methods: {
