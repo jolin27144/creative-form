@@ -14,7 +14,7 @@ export default (_self, h) => {
             click() {
               _self.$emit("handleConfEle", {
                 index: _self.index,
-                id: _self.obj.label
+                id: _self.obj.label + _self.index
               });
             }
           }
