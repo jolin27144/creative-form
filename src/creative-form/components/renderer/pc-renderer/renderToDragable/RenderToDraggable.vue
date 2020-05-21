@@ -115,9 +115,33 @@ const getVnode = (createElement, list) => {
         },
         [...otherVnode]
       )
-    ])
+    ]),
+
+    createElement(
+      "p",
+      { class: "render-to-draggable-tips__title" },
+      "温馨提示：模板若配置了以下信息项（需保证命名一致），APP调出检查模板可自动填充对应项的值。"
+    ),
+
+    createElement(
+      "ul",
+      { class: "render-to-draggable-tips" },
+      getTipsVnode(createElement)
+    )
   ];
 };
+
+function getTipsVnode(createElement) {
+  const tips = ["企业名称", "地址", "企业联系人", "企业电话"];
+  const tipsVnode = [];
+  tips.forEach((item, index) => {
+    if (index) {
+      item = "、" + item;
+    }
+    tipsVnode.push(createElement("li", item));
+  });
+  return tipsVnode;
+}
 export default {
   name: "RenderToDraggable",
 
@@ -188,6 +212,14 @@ export default {
       background: url("../../../../assets/img/icon/render-to-draggable/singature-draggable.png")
         center no-repeat;
     }
+  }
+  &-tips__title {
+    margin: 10px 0;
+  }
+  &-tips__title,
+  &-tips {
+    display: flex;
+    color: #ee3f3f;
   }
 }
 </style>
