@@ -108,8 +108,7 @@ export default {
             "sortable-items-required": validate
           },
           attrs: {
-            // id: this.obj.label + $this.index
-            id: this.obj.label
+            id: this.obj.label + $this.index
           },
           props: {
             label: this.obj.index
