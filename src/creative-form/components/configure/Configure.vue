@@ -13,7 +13,7 @@
         </ul>
         <ul v-show="isOutline" class="sortable-container--outline">
           <li v-for="(item, index) in form" :key="item.obj.label + index">
-            <a :href="`#${item.obj.label}`">
+            <a :href="`#${item.obj.label + (item.obj.index - 1)}`">
               {{ `${++index}.${item.obj.label}` }}
             </a>
           </li>
