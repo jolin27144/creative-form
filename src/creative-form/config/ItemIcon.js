@@ -1,7 +1,7 @@
 export default (_self, h) => {
   let icons = [];
   // 修改按钮
-  if (_self.obj.config && _self.obj.type !== "signature") {
+  if (_self.obj.config) {
     icons.push(
       h(
         "Button",
