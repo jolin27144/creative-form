@@ -138,7 +138,14 @@ const getVnode = (createElement, list) => {
 };
 
 function getTipsVnode(createElement) {
-  const tips = ["企业名称", "地址", "企业联系人", "企业电话"];
+  const tips = [
+    "企业名称",
+    "地址",
+    "企业联系人",
+    "企业电话",
+    "项目名称",
+    "受理编号"
+  ];
   const tipsVnode = [];
   tips.forEach((item, index) => {
     if (index) {
