@@ -233,6 +233,7 @@ export default {
   &-tips {
     display: flex;
     color: #ee3f3f;
+    flex-wrap: wrap;
   }
 }
 </style>
