@@ -120,7 +120,13 @@ const getVnode = (createElement, list) => {
     createElement(
       "p",
       { class: "render-to-draggable-tips__title" },
-      "温馨提示：模板若配置了以下信息项（需保证命名一致），APP调出检查模板可自动填充对应项的值。"
+      "温馨提示：名称重复的信息项只会保留一个"
+    ),
+
+    createElement(
+      "p",
+      { class: "render-to-draggable-tips__title" },
+      "模板若配置了以下信息项（需保证命名一致），APP调出检查模板可自动填充对应项的值。"
     ),
 
     createElement(
