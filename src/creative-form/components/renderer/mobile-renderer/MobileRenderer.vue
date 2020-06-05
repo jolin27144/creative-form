@@ -97,7 +97,6 @@ export default {
               // trigger: trigger[this.obj.type],
               validator: (rule, value, callback) => {
                 value = this.obj.value;
-                debugger;
                 // 没有配置按钮并且允许验证
                 if (
                   !this.configIcon &&

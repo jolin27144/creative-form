@@ -4,7 +4,8 @@ export default (_self, h) => {
       props: {
         placeholder: _self.obj.placeholder || "",
         maxlength: parseInt(_self.obj.maxLength) || 20,
-        value: _self.obj.value || ""
+        value: _self.obj.value || "",
+        disabled: _self.obj.disable
       },
       on: {
         "on-change": function(val) {
@@ -52,5 +53,7 @@ export let inputConf = {
   // 关联字段value
   relation_value: "",
   // 是否被渲染
-  visibility: true
+  visibility: true,
+
+  disable: false
 };
