@@ -96,7 +96,10 @@ export default {
               // message: this.obj.ruleError || "该项为必填项",
               // trigger: trigger[this.obj.type],
               validator: (rule, value, callback) => {
-                value = this.obj.value;
+                if (this.obj.img) value = this.obj.img;
+                else {
+                  value = this.obj.value;
+                }
                 // 没有配置按钮并且允许验证
                 if (
                   !this.configIcon &&

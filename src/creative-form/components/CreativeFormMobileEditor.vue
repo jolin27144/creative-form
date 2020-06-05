@@ -55,9 +55,16 @@ export default {
   methods: {
     validate() {
       return this.template.form.every(item => {
-        return Array.isArray(item.obj.value)
-          ? item.obj.value.length
-          : item.obj.value;
+        if (!this.isVisible && item.default) {
+          return true;
+        }
+        let value;
+        if (item.obj.img) {
+          value = item.obj.img;
+        } else {
+          value = item.obj.value;
+        }
+        return Array.isArray(value) ? value.length : value;
       });
     },
     handleSubmit() {
