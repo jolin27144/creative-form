@@ -1,7 +1,5 @@
 <template>
   <div class="cfme">
-    <!--    <div class="cfme-title">{{ template.name }}</div>-->
-    <!--    <div class="cfme-divider"></div>-->
     <Form class="cfme-form">
       <template v-for="(item, index) in template.form">
         <template
@@ -55,8 +53,19 @@ export default {
     }
   },
   methods: {
+    validate() {
+      return this.template.form.every(item => {
+        return Array.isArray(item.obj.value)
+          ? item.obj.value.length
+          : item.obj.value;
+      });
+    },
     handleSubmit() {
-      this.$emit("editedTemplate", this.template);
+      if (this.validate()) {
+        this.$emit("editedTemplate", this.template);
+      } else {
+        this.$emit("validate-failed");
+      }
     }
   }
 };

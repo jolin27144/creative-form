@@ -12,6 +12,21 @@ import uploads from "../../../components/form/upload/upload";
 import text from "../../../components/form/text/Text";
 import signature from "../../../components/form/signature/Signature";
 
+import {
+  checkboxRules,
+  dateRules,
+  inputRules,
+  radioRules,
+  textAreaRules
+} from "../../../config/validate";
+
+const mapRulesForEl = {
+  radio: radioRules,
+  checkbox: checkboxRules,
+  datepicker: dateRules,
+  input: inputRules,
+  textarea: textAreaRules
+};
 const form_item = {
   title,
   hr,
@@ -73,25 +88,28 @@ export default {
               ? this.obj.index + "." + (this.obj.label || this.ele) + ""
               : (this.obj.label || this.ele) + "",
             // 指定验证name
-            prop: this.obj.name || "temp"
+            prop: this.obj.label || "temp",
             // 验证规则
-            // rules: {
-            //   required: validate,
-            //   message: this.obj.ruleError || "该项为必填项",
-            //   trigger: trigger[this.obj.type],
-            //   validator: (rule, value, callback) => {
-            //     // 没有配置按钮并且允许验证
-            //     if (
-            //       !this.configIcon &&
-            //       validate &&
-            //       (Array.isArray(value) ? !value.length : !value)
-            //     ) {
-            //       callback(new Error("该项为必填项"));
-            //     } else {
-            //       callback();
-            //     }
-            //   }
-            // }
+            rules: {
+              required: validate,
+              ...mapRulesForEl[this.ele],
+              // message: this.obj.ruleError || "该项为必填项",
+              // trigger: trigger[this.obj.type],
+              validator: (rule, value, callback) => {
+                value = this.obj.value;
+                debugger;
+                // 没有配置按钮并且允许验证
+                if (
+                  !this.configIcon &&
+                  validate &&
+                  (Array.isArray(value) ? !value.length : !value)
+                ) {
+                  callback(new Error("该项为必填项"));
+                } else {
+                  callback();
+                }
+              }
+            }
           },
           on: {
             handleConfEle(val) {
